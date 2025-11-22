@@ -3,23 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soul Brew Cafe | Pedido Online, Música Soul e Café Artesanal</title>
-    <meta name="description" content="Peça online o melhor café artesanal e doces do Soul Brew Cafe. Um refúgio de sabor e música soul na sua cidade. Entrega rápida!">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    
+    <title>Soul Brew Cafe - Café com Alma</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;500;600;700&family=Dancing+Script:wght@400;700&display=swap');
 
-        /* RESET e Variáveis */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            scroll-behavior: smooth; /* Rolagem suave para navegação */
         }
 
         :root {
@@ -27,7 +18,8 @@
             --dark: #1a1410;
             --cream: #f4e4d7;
             --brown: #432818;
-            --accent: #ff6b35; /* Cor de Destaque para Conversão */
+            --accent: #ff6b35;
+            --success: #4CAF50;
         }
 
         body {
@@ -35,42 +27,63 @@
             background: var(--dark);
             color: var(--cream);
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
-        /* Estilos de Tipografia e Global */
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
         }
 
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 5%;
+        .particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: var(--gold);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
         }
 
-        /* HEADER - FIXO E TRANSPARENTE NA HOME */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+            50% { transform: translateY(-100px) translateX(50px); opacity: 0.6; }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Header with Glassmorphism */
         header {
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            background: rgba(26, 20, 16, 0.95); /* Opacidade ligeiramente ajustada */
-            backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
-            transition: all 0.3s ease;
+            background: rgba(26, 20, 16, 0.85);
+            backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid rgba(212, 165, 116, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
-        /* Adicionado: Efeito de sombra ao rolar */
+
         header.scrolled {
-            box-shadow: 0 5px 30px rgba(0, 0, 0, 0.6);
+            padding: 0.3rem 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            background: rgba(26, 20, 16, 0.95);
         }
 
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 5%; /* Padding reduzido para um visual mais limpo */
+            padding: 1.2rem 5%;
             max-width: 1600px;
             margin: 0 auto;
         }
@@ -85,14 +98,38 @@
             background-clip: text;
             letter-spacing: 2px;
             cursor: pointer;
-            text-shadow: 0 0 5px rgba(212, 165, 116, 0.3); /* Adicionado: Sombra sutil */
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo::after {
+            content: '♪';
+            position: absolute;
+            top: -5px;
+            right: -20px;
+            font-size: 0.8rem;
+            color: var(--gold);
+            animation: musicNote 2s infinite ease-in-out;
+        }
+
+        @keyframes musicNote {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
         }
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             list-style: none;
             align-items: center;
+        }
+
+        .nav-links li {
+            display: inline-block;
         }
 
         .nav-links a {
@@ -101,62 +138,95 @@
             font-size: 0.9rem;
             font-weight: 500;
             transition: all 0.3s ease;
-            padding: 0.2rem 0;
             position: relative;
+            display: block;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .nav-links a:hover {
             color: var(--gold);
         }
 
-        /* Adicionado: Indicador visual no link ativo */
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 50%;
-            background: var(--gold);
-            transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
-        }
-        .nav-links a:hover::after {
-            width: 100%;
-            left: 0;
-        }
-
-
         .cart-button {
             position: relative;
-            background: var(--gold);
+            background: linear-gradient(135deg, var(--gold), #f4d03f);
             color: var(--dark);
-            padding: 0.6rem 1.4rem; /* Padding ligeiramente maior */
-            border-radius: 50px; /* Mais arredondado */
+            padding: 0.6rem 1.2rem;
+            border-radius: 25px;
             cursor: pointer;
-            font-weight: 700; /* Mais destaque */
-            font-size: 0.9rem;
+            font-weight: 600;
+            font-size: 0.85rem;
             transition: all 0.3s ease;
             border: none;
-            display: flex; /* Para alinhar ícone e texto */
-            align-items: center;
-            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(212, 165, 116, 0.3);
         }
 
         .cart-button:hover {
-            background: var(--cream);
-            transform: translateY(-3px); /* Efeito mais pronunciado */
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(212, 165, 116, 0.5);
         }
 
-        /* HERO Section */
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            min-width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 0 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--gold);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
+        }
+
+        /* Hero Section with Parallax Effect */
         .hero {
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            /* Melhoria: Imagem de fundo mais relacionada ao tema Soul/Vintage */
-            background: linear-gradient(135deg, rgba(26, 20, 16, 0.9), rgba(67, 40, 24, 0.8)),
-                        url('https://images.unsplash.com/photo-1541167760496-1627856bc222?w=1920&q=80'); /* Imagem de café vintage/música */
+            background: linear-gradient(135deg, rgba(26, 20, 16, 0.85), rgba(67, 40, 24, 0.75)),
+                        url('https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1920&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -165,176 +235,1352 @@
             padding: 2rem;
         }
 
-        .hero h1 {
-            font-size: 5rem; /* Fonte maior para impacto */
-            margin-bottom: 1.5rem;
-            text-shadow: 0 0 15px rgba(0, 0, 0, 0.5); /* Sombra para legibilidade */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, rgba(26, 20, 16, 0.6) 100%);
         }
-        
-        /* Melhoria de Conversão: CTA Principal destacado */
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 0.95rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            background: linear-gradient(135deg, var(--gold), #f4d03f, var(--gold));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            font-weight: 900;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease-out 0.4s both, shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--cream);
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--gold);
+            animation: bounce 2s infinite;
+            cursor: pointer;
+            font-size: 2rem;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .cta-button {
+            padding: 1rem 2.5rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
         .cta-button.primary {
-            background: var(--accent); /* Cor de destaque (Laranja/Vermelho) */
-            color: white;
-            padding: 1.1rem 3rem; /* Padding extra para destaque */
-            font-size: 1.05rem;
+            background: linear-gradient(135deg, var(--gold), #f4d03f);
+            color: var(--dark);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
         }
 
         .cta-button.primary:hover {
-            background: #ff855e;
-            transform: scale(1.05); /* Efeito mais direto */
-            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.4);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.5);
         }
-        
-        /* Seções Gerais */
-        section {
-            padding: 6rem 5%; /* Mais padding vertical */
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--cream);
+            border: 2px solid var(--gold);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.3);
+        }
+
+        /* Stats Section */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 3rem 5%;
             max-width: 1400px;
-            margin: 0 auto;
+            margin: -50px auto 0;
+            position: relative;
+            z-index: 10;
         }
-        
-        .section-title {
-            font-size: 3.5rem; /* Fonte maior para títulos de seção */
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(67, 40, 24, 0.9), rgba(26, 20, 16, 0.9));
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(212, 165, 116, 0.3);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            font-weight: 700;
+            display: block;
             margin-bottom: 0.5rem;
         }
-        
-        /* ABOUT Section */
-        .about {
-            /* Estilo mantido, mas aprimorado para legibilidade */
-            background: linear-gradient(135deg, rgba(67, 40, 24, 0.6), rgba(26, 20, 16, 0.8));
-            padding: 4rem;
+
+        .stat-label {
+            color: var(--cream);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        
-        .about-text h3 {
-            font-size: 2rem; /* Mais impacto */
+
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
         }
-        
-        /* MENU Section */
-        .category-filter {
+
+        .section-header {
+            text-align: center;
             margin-bottom: 4rem;
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--cream);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .section-description {
+            font-size: 1.05rem;
+            color: rgba(244, 228, 215, 0.8);
+            max-width: 650px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        /* About Section with Timeline */
+        .about {
+            background: linear-gradient(135deg, rgba(67, 40, 24, 0.4), rgba(26, 20, 16, 0.6));
+            border-radius: 20px;
+            padding: 3rem;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--cream);
+        }
+
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            margin-bottom: 1.2rem;
+        }
+
+        .about-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .feature-badge {
+            background: rgba(212, 165, 116, 0.1);
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .feature-badge:hover {
+            background: rgba(212, 165, 116, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .about-image:hover::before {
+            opacity: 1;
+        }
+
+        /* Enhanced Menu with Search */
+        .menu-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .search-bar {
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-left: 3rem;
+            background: rgba(67, 40, 24, 0.3);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 50px;
+            color: var(--cream);
+            font-size: 0.95rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--gold);
+            background: rgba(67, 40, 24, 0.5);
+            box-shadow: 0 5px 20px rgba(212, 165, 116, 0.2);
+        }
+
+        .search-bar input::placeholder {
+            color: rgba(244, 228, 215, 0.5);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1.2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold);
+            font-size: 1.1rem;
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
         .filter-btn {
-            padding: 0.8rem 2rem;
-            border-radius: 50px; /* Mais arredondado */
+            padding: 0.7rem 1.8rem;
+            background: rgba(67, 40, 24, 0.3);
+            color: var(--cream);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .filter-btn:hover::before {
+            left: 100%;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--gold);
+            color: var(--dark);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 165, 116, 0.3);
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .menu-item {
+            background: linear-gradient(135deg, rgba(67, 40, 24, 0.3), rgba(26, 20, 16, 0.5));
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .menu-item.hidden {
+            display: none;
         }
 
         .menu-item:hover {
-            transform: translateY(-10px); /* Efeito mais atraente */
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(212, 165, 116, 0.3);
         }
-        
-        .add-to-cart-btn {
-            background: var(--accent); /* Usando a cor de destaque para o CTA de compra */
+
+        .menu-item-image {
+            width: 100%;
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, transparent 0%, rgba(26, 20, 16, 0.7) 100%);
+        }
+
+        .menu-item:hover .menu-item-image {
+            transform: scale(1.05);
+        }
+
+        .menu-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
             color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .menu-item-content {
+            padding: 1.8rem;
+        }
+
+        .menu-item h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+            transition: color 0.3s ease;
+        }
+
+        .menu-item:hover h3 {
+            color: #f4d03f;
+        }
+
+        .menu-item p {
+            color: rgba(244, 228, 215, 0.8);
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .menu-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .price {
+            color: var(--gold);
+            font-size: 1.6rem;
             font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .add-to-cart-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            white-space: nowrap;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .add-to-cart-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.4s, height 0.4s;
+        }
+
+        .add-to-cart-btn:hover::before {
+            width: 200px;
+            height: 200px;
         }
 
         .add-to-cart-btn:hover {
-            background: #ff855e;
-            transform: scale(1.03);
-        }
-        
-        /* GALLERY Section */
-        .gallery {
-            padding: 6rem 0; /* Remove padding lateral no container para full-width effect */
-            background: rgba(67, 40, 24, 0.3);
+            background: var(--cream);
+            transform: scale(1.05);
         }
 
-        /* Novo estilo para a Galeria, sem container para cobrir toda a largura */
-        .gallery-grid {
-            max-width: 100%; /* Permite que a grade se estenda */
-            padding: 0 5%;
+        .add-to-cart-btn.added {
+            background: var(--success);
+            color: white;
+        }
+
+        .add-to-cart-btn.added::after {
+            content: '✓';
+            margin-left: 0.3rem;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            background: rgba(67, 40, 24, 0.2);
+            padding: 5rem 5%;
+            margin: 0 -5vw;
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
             margin: 0 auto;
         }
-        
-        /* CART MODAL (Estilização mantida, mas JS foi adicionado) */
+
+        .review-card {
+            background: linear-gradient(135deg, rgba(67, 40, 24, 0.5), rgba(26, 20, 16, 0.7));
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .review-stars {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .review-text {
+            color: var(--cream);
+            font-style: italic;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .review-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--gold), #f4d03f);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            color: var(--gold);
+            margin-bottom: 0.2rem;
+        }
+
+        .author-info p {
+            color: rgba(244, 228, 215, 0.6);
+            font-size: 0.85rem;
+        }
+
+        /* Gallery with Lightbox */
+        .gallery {
+            background: rgba(67, 40, 24, 0.2);
+            padding: 5rem 5%;
+            margin: 0 -5vw;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-item::before {
+            content: '🔍';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 3rem;
+            z-index: 10;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            filter: brightness(0.7);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(67, 40, 24, 0.3));
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-item {
+            padding: 2rem 1.5rem;
+            background: rgba(26, 20, 16, 0.4);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-5px);
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .contact-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item h3 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-item p {
+            color: rgba(244, 228, 215, 0.8);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Enhanced Cart Modal */
         .cart-modal {
-             /* Estilização mantida, mas aprimorada para melhor foco */
-             align-items: center; /* Centraliza verticalmente o modal */
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 1rem;
+            backdrop-filter: blur(5px);
         }
-        
+
+        .cart-modal.active {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 2rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         .cart-content {
-            border: 3px solid var(--gold);
+            background: var(--dark);
+            border: 2px solid var(--gold);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            margin: auto;
+            animation: slideDown 0.4s ease-out;
         }
-        
-        /* MEDIA QUERIES (Aprimorado) */
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .cart-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 1.8rem;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: var(--cream);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            line-height: 1;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-cart:hover {
+            color: var(--accent);
+            background: rgba(255, 107, 53, 0.1);
+            transform: rotate(90deg);
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .clear-cart-btn {
+            padding: 0.6rem 1.2rem;
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .clear-cart-btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .cart-items {
+            margin-bottom: 1.5rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem;
+            background: rgba(67, 40, 24, 0.3);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            gap: 1rem;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover {
+            border-color: var(--gold);
+            background: rgba(67, 40, 24, 0.4);
+        }
+
+        .cart-item-info h4 {
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .cart-item-info p {
+            color: rgba(244, 228, 215, 0.7);
+            font-size: 0.9rem;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .qty-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            background: rgba(26, 20, 16, 0.5);
+            padding: 0.3rem;
+            border-radius: 10px;
+        }
+
+        .qty-btn {
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .qty-btn:hover {
+            background: var(--cream);
+            transform: scale(1.1);
+        }
+
+        .qty-btn:active {
+            transform: scale(0.95);
+        }
+
+        .qty-display {
+            color: var(--cream);
+            font-weight: 600;
+            min-width: 25px;
+            text-align: center;
+        }
+
+        .remove-item {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .remove-item:hover {
+            background: #ff4520;
+            transform: scale(1.05);
+        }
+
+        .delivery-section {
+            background: rgba(67, 40, 24, 0.3);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        .delivery-section h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+        }
+
+        .delivery-section select, .delivery-section input {
+            width: 100%;
+            padding: 1rem;
+            background: var(--dark);
+            color: var(--cream);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-family: 'Montserrat', sans-serif;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .delivery-section select:focus, .delivery-section input:focus {
+            outline: none;
+            border-color: #f4d03f;
+            box-shadow: 0 0 0 3px rgba(212, 165, 116, 0.2);
+        }
+
+        .delivery-section input::placeholder {
+            color: rgba(244, 228, 215, 0.5);
+        }
+
+        .cart-summary {
+            background: rgba(67, 40, 24, 0.5);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            color: var(--cream);
+            font-size: 0.95rem;
+        }
+
+        .summary-row.total {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--gold);
+            padding-top: 1rem;
+            border-top: 2px solid var(--gold);
+            margin-top: 1rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--gold), #f4d03f);
+            color: var(--dark);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checkout-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .checkout-btn:hover::before {
+            width: 500px;
+            height: 500px;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4);
+        }
+
+        .checkout-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: rgba(244, 228, 215, 0.6);
+        }
+
+        .empty-cart-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .empty-cart p {
+            font-size: 1.1rem;
+        }
+
+        /* Notification Toast */
+        .notification {
+            position: fixed;
+            bottom: -100px;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--gold), #f4d03f);
+            color: var(--dark);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 3000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .notification.show {
+            bottom: 2rem;
+        }
+
+        .notification-icon {
+            font-size: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            background: rgba(15, 10, 8, 0.8);
+            color: var(--gold);
+            border-top: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-link {
+            color: var(--gold);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            color: var(--cream);
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
         @media (max-width: 968px) {
             .hero h1 {
-                font-size: 3.8rem;
+                font-size: 3.5rem;
             }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                height: 300px;
+            }
+
             .nav-links {
-                gap: 1.5rem;
+                gap: 2rem;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
+            nav {
+                padding: 1rem 4%;
             }
+
+            .logo {
+                font-size: 1.4rem;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: rgba(26, 20, 16, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                transition: left 0.3s ease;
+                border-top: 1px solid rgba(212, 165, 116, 0.3);
+                z-index: 999;
+            }
+
             .nav-links.active {
                 left: 0;
             }
-            .hero-content {
-                padding-top: 5rem;
+
+            .nav-links li {
+                width: 100%;
+                text-align: center;
             }
-            .about-content {
-                grid-template-columns: 1fr;
+
+            .nav-links a {
+                font-size: 1.1rem;
+                padding: 0.5rem;
             }
-            .about {
-                padding: 2rem;
+
+            .cart-button {
+                width: 100%;
+                max-width: 250px;
             }
-            .cta-buttons {
-                flex-direction: row;
-                flex-wrap: wrap; /* Permite quebrar, mas inicia como linha */
+
+            .mobile-menu-btn {
+                display: block;
             }
-            .cta-button {
-                width: 48%; /* Ocupa metade para manter a linha */
+
+            .hero {
+                min-height: 90vh;
+                padding: 1.5rem;
+                background-attachment: scroll;
             }
-            .section-title {
+
+            .hero h1 {
                 font-size: 2.5rem;
             }
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
+
+            .hero p {
+                font-size: 1.1rem;
             }
-        }
-        
-        @media (max-width: 480px) {
-            .hero h1 {
+
+            .hero-subtitle {
+                font-size: 0.8rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            section {
+                padding: 3rem 4%;
+            }
+
+            .section-title {
                 font-size: 2.2rem;
             }
-            .cta-button {
-                width: 100%; /* Volta a ser coluna em telas muito pequenas */
-                max-width: none;
+
+            .section-description {
+                font-size: 1rem;
             }
-            .section-title {
+
+            .about {
+                padding: 2rem 1.5rem;
+            }
+
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+
+            .stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.8rem;
+            }
+
+            .contact {
+                padding: 2rem 1.5rem;
+            }
+
+            .cart-content {
+                padding: 1.5rem;
+                margin-top: 1rem;
+            }
+
+            .cart-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .cart-item-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            .menu-footer {
+                flex-wrap: wrap;
+            }
+
+            .add-to-cart-btn {
+                flex: 1;
+                min-width: 120px;
+            }
+
+            .notification {
+                right: 1rem;
+                left: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
                 font-size: 2rem;
             }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
             .gallery-grid {
                 grid-template-columns: 1fr;
             }
-            .cart-item-controls {
-                 flex-direction: column;
-                 align-items: flex-start;
-                 gap: 0.5rem;
+
+            .stat-number {
+                font-size: 2.5rem;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background Particles -->
+    <div class="particles" id="particles"></div>
+
     <header id="header">
         <nav>
-            <div class="logo" onclick="scrollToSection('home')">SOUL BREW</div>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-                <i class="fas fa-bars" id="menuIcon"></i>
-            </button>
+            <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">SOUL BREW</div>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#home" onclick="scrollToSection('home')">Início</a></li>
-                <li><a href="#about" onclick="scrollToSection('about')">Sobre</a></li>
-                <li><a href="#menu" onclick="scrollToSection('menu')">Menu</a></li>
-                <li><a href="#gallery" onclick="scrollToSection('gallery')">Galeria</a></li>
-                <li><a href="#contact" onclick="scrollToSection('contact')">Contato</a></li>
+                <li><a href="#home" onclick="closeMobileMenu()">Início</a></li>
+                <li><a href="#about" onclick="closeMobileMenu()">Sobre</a></li>
+                <li><a href="#menu" onclick="closeMobileMenu()">Menu</a></li>
+                <li><a href="#reviews" onclick="closeMobileMenu()">Avaliações</a></li>
+                <li><a href="#gallery" onclick="closeMobileMenu()">Galeria</a></li>
+                <li><a href="#contact" onclick="closeMobileMenu()">Contato</a></li>
                 <li>
                     <button class="cart-button" onclick="toggleCart(); closeMobileMenu();">
-                        <i class="fas fa-shopping-cart"></i> Carrinho
+                        🛒 Carrinho
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
                 </li>
@@ -342,309 +1588,470 @@
         </nav>
     </header>
 
-    <main>
-        <section id="home" class="hero">
-            <div class="hero-content">
-                <div class="hero-subtitle">Onde a Música Encontra o Café</div>
-                <h1>SOUL BREW CAFE</h1>
-                <p>Cada xícara conta uma história, cada gole toca sua alma</p>
-                <div class="cta-buttons">
-                    <a href="#menu" class="cta-button primary">FAÇA SEU PEDIDO AGORA</a>
-                    <a href="#contact" class="cta-button secondary">VISITE-NOS / LOCALIZAÇÃO</a>
-                </div>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-subtitle">Onde a Música Encontra o Café</div>
+            <h1>SOUL BREW CAFE</h1>
+            <p>Cada xícara conta uma história, cada gole toca sua alma</p>
+            <div class="cta-buttons">
+                <a href="#menu" class="cta-button primary">Ver Menu</a>
+                <a href="#contact" class="cta-button secondary">Localização</a>
             </div>
-        </section>
+        </div>
+        <div class="scroll-indicator" onclick="document.getElementById('about').scrollIntoView({behavior: 'smooth'})">
+            ↓
+        </div>
+    </section>
 
-        <section id="about">
-            <div class="section-header">
-                <div class="section-label">Nossa Essência</div>
-                <h2 class="section-title">A Alma do Café</h2>
-                <p class="section-description">Mais do que um café, somos um refúgio para quem busca autenticidade, sabor e conexão</p>
-            </div>
-            <div class="about">
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3>Nascido da Paixão pela Música Soul e Grãos de Excelência</h3>
-                        <p>No **Soul Brew Cafe**, cada xícara é uma nota musical, cada aroma é uma melodia. Inspirados pelos ritmos do soul, criamos um espaço onde o café artesanal se encontra com a cultura, o calor humano e a autenticidade.</p>
-                        <p>Nossos grãos são selecionados de **fazendas sustentáveis** no Sul de Minas, torrados com maestria para extrair o melhor perfil de sabor. Aqui, você não apenas toma café, você vive uma **experiência sensorial completa**, embalada por uma trilha sonora que toca a alma.</p>
-                        <p>**Venha e sinta a diferença!** Descubra o verdadeiro sabor do café com alma, em um ambiente que celebra momentos inesquecíveis.</p>
+    <!-- Stats Section -->
+    <div class="stats">
+        <div class="stat-card">
+            <span class="stat-number" data-target="5">0</span>
+            <span class="stat-label">Anos de Experiência</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" data-target="10000">0</span>
+            <span class="stat-label">Clientes Satisfeitos</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" data-target="50">0</span>
+            <span class="stat-label">Tipos de Café</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number" data-target="100">0</span>
+            <span class="stat-label">Avaliações 5★</span>
+        </div>
+    </div>
+
+    <section id="about">
+        <div class="section-header">
+            <div class="section-label">Nossa Essência</div>
+            <h2 class="section-title">A Alma do Café</h2>
+            <p class="section-description">Mais do que um café, somos um refúgio para quem busca autenticidade, sabor e conexão</p>
+        </div>
+        <div class="about">
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Nascido da Paixão pela Música Soul</h3>
+                    <p>No Soul Brew Cafe, cada xícara é uma nota musical, cada aroma é uma melodia. Inspirados pelos ritmos da música soul, criamos um espaço onde o café artesanal se encontra com a cultura e a autenticidade.</p>
+                    <p>Nossos grãos são selecionados de fazendas sustentáveis, torrados com maestria e preparados com dedicação. Aqui, você não apenas toma café, você vive uma experiência sensorial completa.</p>
+                    <p>Venha descobrir o verdadeiro sabor do café com alma, em um ambiente que celebra a boa música, o calor humano e momentos inesquecíveis.</p>
+                    <div class="about-features">
+                        <div class="feature-badge">☕ Café Artesanal</div>
+                        <div class="feature-badge">🌱 100% Sustentável</div>
+                        <div class="feature-badge">🎵 Ambiente Musical</div>
+                        <div class="feature-badge">❤️ Feito com Amor</div>
                     </div>
-                    <div class="about-image" style="background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80')">
-                    </div> 
-                    </div>
+                </div>
+                <div class="about-image"></div>
             </div>
-        </section>
+        </div>
+    </section>
+
+    <section id="menu">
+        <div class="section-header">
+            <div class="section-label">Sabores que Tocam a Alma</div>
+            <h2 class="section-title">Nosso Menu</h2>
+            <p class="section-description">Cada bebida é uma composição única criada para despertar seus sentidos</p>
+        </div>
         
-        <section id="reviews" style="background-color: rgba(67, 40, 24, 0.1);">
-            <div class="section-header">
-                <div class="section-label">A Voz do Groove</div>
-                <h2 class="section-title">O Que Dizem Nossos Clientes</h2>
-                <p class="section-description">O café que toca a alma e o ambiente que acalma o coração.</p>
-            </div>
-            <div class="review-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
-                <div class="review-item" style="padding: 1.5rem; background: var(--brown); border-radius: 15px; border-left: 5px solid var(--gold);">
-                    <i class="fas fa-quote-left" style="color: var(--gold); font-size: 1.5rem; margin-bottom: 1rem; display: block;"></i>
-                    <p style="font-style: italic; color: var(--cream); margin-bottom: 1rem;">"O Cappuccino Groove é viciante! O ambiente, a música, e o aroma de café recém-torrado fazem do Soul Brew meu novo refúgio."</p>
-                    <p style="font-weight: 600; color: var(--gold);">- Maria S., Cliente Assídua</p>
-                </div>
-                <div class="review-item" style="padding: 1.5rem; background: var(--brown); border-radius: 15px; border-left: 5px solid var(--gold);">
-                    <i class="fas fa-quote-left" style="color: var(--gold); font-size: 1.5rem; margin-bottom: 1rem; display: block;"></i>
-                    <p style="font-style: italic; color: var(--cream); margin-bottom: 1rem;">"Pedi o Iced Soul Shaker para entrega e chegou perfeito, super rápido. O brownie de chocolate é o melhor da cidade, sem dúvidas!"</p>
-                    <p style="font-weight: 600; color: var(--gold);">- João P., Pedido Online</p>
-                </div>
-                <div class="review-item" style="padding: 1.5rem; background: var(--brown); border-radius: 15px; border-left: 5px solid var(--gold);">
-                    <i class="fas fa-quote-left" style="color: var(--gold); font-size: 1.5rem; margin-bottom: 1rem; display: block;"></i>
-                    <p style="font-style: italic; color: var(--cream); margin-bottom: 1rem;">"O Soul Espresso tem a acidez e o corpo perfeitos. A paixão pelo café é sentida em cada gole. Nota 10!"</p>
-                    <p style="font-weight: 600; color: var(--gold);">- Ana L., Conhecedora de Café</p>
-                </div>
-            </div>
-        </section>
-
-
-        <section id="menu">
-            <div class="section-header">
-                <div class="section-label">Sabores que Tocam a Alma</div>
-                <h2 class="section-title">Nosso Menu</h2>
-                <p class="section-description">Cada bebida é uma composição única criada para despertar seus sentidos. **Peça seu Soul agora!**</p>
+        <div class="menu-controls">
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="menuSearch" placeholder="Buscar no menu..." oninput="searchMenu()">
             </div>
             
             <div class="category-filter">
                 <button class="filter-btn active" onclick="filterMenu('all')">Todos</button>
-                <button class="filter-btn" onclick="filterMenu('cafes')">Cafés Quentes</button>
-                <button class="filter-btn" onclick="filterMenu('gelados')">Bebidas Geladas</button>
-                <button class="filter-btn" onclick="filterMenu('doces')">Doces</button>
-                <button class="filter-btn" onclick="filterMenu('salgados')">Salgados</button>
+                <button class="filter-btn" onclick="filterMenu('cafes')">☕ Cafés Quentes</button>
+                <button class="filter-btn" onclick="filterMenu('gelados')">🧊 Bebidas Geladas</button>
+                <button class="filter-btn" onclick="filterMenu('doces')">🍰 Doces</button>
+                <button class="filter-btn" onclick="filterMenu('salgados')">🥐 Salgados</button>
             </div>
+        </div>
 
-            <div class="menu-grid">
-                <div class="menu-item" data-category="cafes" data-id="1">
-                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=800&q=80')"></div>
-                    <div class="menu-item-content">
-                        <h3>Soul Espresso</h3>
-                        <p>Intenso e encorpado. Nosso espresso artesanal feito com grãos arábica especiais que tocam sua alma.</p>
-                        <div class="menu-footer">
-                            <div class="price">R$ 8,00</div>
-                            <button class="add-to-cart-btn" data-name="Soul Espresso" data-price="8.00" data-id="1">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu-item" data-category="cafes" data-id="2">
-                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800&q=80')">
-                        <span class="menu-badge" style="background-color: var(--gold); color: var(--dark);">MAIS PEDIDO</span>
-                    </div>
-                    <div class="menu-item-content">
-                        <h3>Cappuccino Groove</h3>
-                        <p>Cremoso e suave, com latte art que dança na espuma. Perfeito para momentos contemplativos.</p>
-                        <div class="menu-footer">
-                            <div class="price">R$ 12,00</div>
-                            <button class="add-to-cart-btn" data-name="Cappuccino Groove" data-price="12.00" data-id="2">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu-item" data-category="cafes" data-id="3">
-                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1578374173705-7ab52b6f9be0?w=800&q=80')"></div>
-                    <div class="menu-item-content">
-                        <h3>Mocha Rhythm</h3>
-                        <p>Chocolate belga premium encontra café especial numa harmonia perfeita de sabores.</p>
-                        <div class="menu-footer">
-                            <div class="price">R$ 14,00</div>
-                            <button class="add-to-cart-btn" data-name="Mocha Rhythm" data-price="14.00" data-id="3">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="menu-item" data-category="cafes" data-id="4">
-                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1506619216599-90a66d0c9f16?w=800&q=80')"></div>
-                    <div class="menu-item-content">
-                        <h3>Soul Latte</h3>
-                        <p>Nosso clássico latte com leite vaporizado perfeitamente e um toque de baunilha.</p>
-                        <div class="menu-footer">
-                            <div class="price">R$ 11,00</div>
-                            <button class="add-to-cart-btn" data-name="Soul Latte" data-price="11.00" data-id="4">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="menu-item" data-category="gelados" data-id="5">
-                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1563207172-8d76d654c86b?w=800&q=80')">
-                         <span class="menu-badge">NOVIDADE</span>
-                    </div>
-                    <div class="menu-item-content">
-                        <h3>Iced Soul Shaker</h3>
-                        <p>Café gelado batido, levemente adocicado com caramelo salgado. Refrescante e viciante.</p>
-                        <div class="menu-footer">
-                            <div class="price">R$ 15,00</div>
-                            <button class="add-to-cart-btn" data-name="Iced Soul Shaker" data-price="15.00" data-id="5">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu-item" data-category="gelados" data-id="6">
-                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1546944641-54c72d622f98?w=800&q=80')"></div>
-                    <div class="menu-item-content">
-                        <h3>Chai Frappé</h3>
-                        <p>Mistura de chá chai com especiarias e leite cremoso, servido com gelo e finalizado com chantilly.</p>
-                        <div class="menu-footer">
-                            <div class="price">R$ 13,00</div>
-                            <button class="add-to-cart-btn" data-name="Chai Frappé" data-price="13.00" data-id="6">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="menu-item" data-category="doces" data-id="7">
-                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1582239332560-a24905d45207?w=800&q=80')"></div>
-                    <div class="menu-item-content">
-                        <h3>Brownie de Chocolate</h3>
-                        <p>Nosso clássico brownie, denso por dentro e crocante por fora, com nozes pecã.</p>
-                        <div class="menu-footer">
-                            <div class="price">R$ 10,00</div>
-                            <button class="add-to-cart-btn" data-name="Brownie de Chocolate" data-price="10.00" data-id="7">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu-item" data-category="doces" data-id="8">
-                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1551888917-e9a385f08579?w=800&q=80')"></div>
-                    <div class="menu-item-content">
-                        <h3>Torta Red Velvet</h3>
-                        <p>Fatias generosas de bolo aveludado, com recheio cremoso de cream cheese.</p>
-                        <div class="menu-footer">
-                            <div class="price">R$ 16,00</div>
-                            <button class="add-to-cart-btn" data-name="Torta Red Velvet" data-price="16.00" data-id="8">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="menu-item" data-category="salgados" data-id="9">
-                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1546257253-12502c34c2d0?w=800&q=80')"></div>
-                    <div class="menu-item-content">
-                        <h3>Pão de Queijo Recheado</h3>
-                        <p>Pão de queijo tradicional mineiro, com recheio de queijo canastra meia-cura.</p>
-                        <div class="menu-footer">
-                            <div class="price">R$ 7,00</div>
-                            <button class="add-to-cart-btn" data-name="Pão de Queijo Recheado" data-price="7.00" data-id="9">Adicionar</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="menu-item" data-category="salgados" data-id="10">
-                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1565985860715-f5f8489a2631?w=800&q=80')"></div>
-                    <div class="menu-item-content">
-                        <h3>Croissant de Parma e Brie</h3>
-                        <p>Massa folhada francesa, manteiga, presunto de parma e queijo brie. Simplesmente delicioso.</p>
-                        <div class="menu-footer">
-                            <div class="price">R$ 18,00</div>
-                            <button class="add-to-cart-btn" data-name="Croissant de Parma e Brie" data-price="18.00" data-id="10">Adicionar</button>
-                        </div>
+        <div class="menu-grid" id="menuGrid">
+            <div class="menu-item" data-category="cafes" data-name="soul espresso">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Soul Espresso</h3>
+                    <p>Intenso e encorpado. Nosso espresso artesanal feito com grãos arábica especiais que tocam sua alma.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 8,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Soul Espresso', 8.00, this)">Adicionar</button>
                     </div>
                 </div>
             </div>
-        </section>
 
-        <section id="gallery" class="gallery">
-            <div class="section-header container">
-                <div class="section-label">Nossos Momentos</div>
-                <h2 class="section-title">Galeria de Sabores</h2>
-                <p class="section-description">Uma amostra do nosso ambiente acolhedor e das nossas criações mais amadas. **Conheça nossa alma!**</p>
-            </div>
-            
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1509785121886-c93d987ac8f2?w=500&q=80" alt="Grãos de Café e Filtro"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1497935313495-201b17ef41d4?w=500&q=80" alt="Barista Preparando Café"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1525946950273-0ed7d80be951?w=500&q=80" alt="Interior do Café Aconchegante"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1541334237119-03c6294d13c7?w=500&q=80" alt="Bolo e Café na Mesa"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517253507115-325d7af733e8?w=500&q=80" alt="Latte Art em Xícara"></div>
-                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1504753733026-621f82f5c765?w=500&q=80" alt="Xícara de Café Quente"></div>
-            </div>
-        </section>
-
-        <section id="contact">
-            <div class="section-header">
-                <div class="section-label">Entre em Contato</div>
-                <h2 class="section-title">Visite-nos ou Peça Agora</h2>
-                <p class="section-description">Esperamos por você para uma experiência inesquecível. Veja nossos detalhes de contato e localização.</p>
-            </div>
-            
-            <div class="contact">
-                <div class="contact-grid">
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Endereço</h3>
-                        <p>Rua da Alma, 123 - Centro</p>
-                        <p>Cidade do Soul - Brasil</p>
-                        <a href="https://maps.google.com/?q=Rua+da+Alma,+123,+Cidade+do+Soul" target="_blank" style="font-weight: 600;">Ver no Mapa</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone"></i>
-                        <h3>Telefone / WhatsApp</h3>
-                        <a href="https://wa.me/5511987654321" target="_blank" style="color: var(--accent); font-weight: 700; display: block; margin-bottom: 0.5rem;">+55 (11) 98765-4321 (WhatsApp)</a>
-                        <a href="tel:+551133332222">+55 (11) 3333-2222</a>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-clock"></i>
-                        <h3>Horário</h3>
-                        <p>Segunda a Sexta: 8h - 20h</p>
-                        <p>Sábados: 9h - 18h</p>
-                        <p>Domingos: Fechado</p>
-                    </div>
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <h3>E-mail / Social</h3>
-                        <a href="mailto:contato@soulbrew.com.br">contato@soulbrew.com.br</a>
-                        <div style="margin-top: 1rem; font-size: 1.5rem;">
-                            <a href="#" target="_blank" style="margin: 0 0.5rem;"><i class="fab fa-instagram"></i></a>
-                            <a href="#" target="_blank" style="margin: 0 0.5rem;"><i class="fab fa-facebook-f"></i></a>
-                            <a href="#" target="_blank" style="margin: 0 0.5rem;"><i class="fab fa-spotify"></i></a>
-                        </div>
+            <div class="menu-item" data-category="cafes" data-name="cappuccino groove">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800&q=80')">
+                    <span class="menu-badge">Popular</span>
+                </div>
+                <div class="menu-item-content">
+                    <h3>Cappuccino Groove</h3>
+                    <p>Cremoso e suave, com latte art que dança na espuma. Perfeito para momentos contemplativos.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 12,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Cappuccino Groove', 12.00, this)">Adicionar</button>
                     </div>
                 </div>
             </div>
-        </section>
-        
-    </main>
 
-    <footer>
-        <p class="logo" style="font-size: 1.2rem; margin-bottom: 1rem; text-shadow: none; -webkit-text-fill-color: var(--gold);">SOUL BREW CAFE</p>
-        <p>
-            © 2025 Soul Brew Cafe. Todos os direitos reservados.
-        </p>
-        <p style="margin-top: 0.5rem;">
-            Desenvolvido com <i class="fas fa-heart" style="color: var(--accent);"></i> e Café. | 
-            <a href="#">Política de Privacidade</a> | 
-            <a href="#">Termos de Uso</a>
-        </p>
-    </footer>
+            <div class="menu-item" data-category="cafes" data-name="mocha rhythm">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1578374173705-7ab52b6f9be0?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Mocha Rhythm</h3>
+                    <p>Chocolate belga premium encontra café especial numa harmonia perfeita de sabores.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 14,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Mocha Rhythm', 14.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
 
-    <div id="cartModal" class="cart-modal">
+            <div class="menu-item" data-category="cafes" data-name="soul latte">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Soul Latte</h3>
+                    <p>Nosso clássico latte com leite vaporizado perfeitamente e um toque de baunilha.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 11,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Soul Latte', 11.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="cafes" data-name="macchiato groove">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1485808191679-5f86510681a2?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Macchiato Groove</h3>
+                    <p>Espresso marcado com uma generosa camada de espuma cremosa. Intensidade equilibrada.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 9,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Macchiato Groove', 9.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="gelados" data-name="cold brew soul">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&q=80')">
+                    <span class="menu-badge">Novo</span>
+                </div>
+                <div class="menu-item-content">
+                    <h3>Cold Brew Soul</h3>
+                    <p>Café extraído a frio por 24 horas. Suave, refrescante e naturalmente doce.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 13,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Cold Brew Soul', 13.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="gelados" data-name="frappé harmony">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Frappé Harmony</h3>
+                    <p>Bebida gelada cremosa com café, leite e toque de caramelo. Perfeita para dias quentes.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 15,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Frappé Harmony', 15.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="doces" data-name="brownie soul">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Brownie Soul</h3>
+                    <p>Brownie de chocolate belga com nozes e calda quente. Pura indulgência.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 10,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Brownie Soul', 10.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="doces" data-name="cheesecake groove">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1533134486753-c833f0ed4866?w=800&q=80')">
+                    <span class="menu-badge">Popular</span>
+                </div>
+                <div class="menu-item-content">
+                    <h3>Cheesecake Groove</h3>
+                    <p>Cheesecake cremoso com calda de frutas vermelhas. Uma experiência divina.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 12,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Cheesecake Groove', 12.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="doces" data-name="cookie soul">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Cookie Soul</h3>
+                    <p>Cookie artesanal com gotas de chocolate meio amargo. Crocante por fora, macio por dentro.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 7,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Cookie Soul', 7.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="doces" data-name="torta de limão">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Torta de Limão</h3>
+                    <p>Torta de limão siciliano com merengue italiano. Equilíbrio perfeito entre doce e ácido.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 11,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Torta de Limão', 11.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="doces" data-name="muffin blueberry">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1607958996333-41aef7caefaa?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Muffin Blueberry</h3>
+                    <p>Muffin fofinho recheado com blueberries frescos. Perfeito para acompanhar seu café.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 8,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Muffin Blueberry', 8.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="salgados" data-name="croissant francês">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Croissant Francês</h3>
+                    <p>Croissant artesanal folhado e amanteigado. Feito diariamente com técnica tradicional francesa.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 9,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Croissant Francês', 9.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="salgados" data-name="sanduíche soul">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1528735602780-2552fd46c7af?w=800&q=80')">
+                    <span class="menu-badge">Chef's Special</span>
+                </div>
+                <div class="menu-item-content">
+                    <h3>Sanduíche Soul</h3>
+                    <p>Pão ciabatta, peito de peru, queijo brie, rúcula e geleia de pimenta. Assinatura da casa.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 16,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Sanduíche Soul', 16.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="salgados" data-name="quiche lorraine">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Quiche Lorraine</h3>
+                    <p>Quiche clássica francesa com bacon, queijo gruyère e creme. Servida quentinha.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 14,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Quiche Lorraine', 14.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="salgados" data-name="pão de queijo mineiro">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1618897996318-5a901fa6ca71?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Pão de Queijo Mineiro</h3>
+                    <p>Tradicional pão de queijo mineiro, quentinho e irresistível. Porção com 4 unidades.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 10,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Pão de Queijo Mineiro', 10.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="cafes" data-name="affogato soul">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=800&q=80')">
+                    <span class="menu-badge">Especial</span>
+                </div>
+                <div class="menu-item-content">
+                    <h3>Affogato Soul</h3>
+                    <p>Sorvete de baunilha coberto com espresso quente. Sobremesa e café em uma experiência única.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 15,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Affogato Soul', 15.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="cafes" data-name="irish coffee">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1514066558159-fc8c737ef259?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Irish Coffee</h3>
+                    <p>Café quente com whisky irlandês e creme de leite. Clássico reconfortante.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 18,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Irish Coffee', 18.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="gelados" data-name="iced latte caramelo">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Iced Latte Caramelo</h3>
+                    <p>Latte gelado com calda de caramelo artesanal e chantilly. Doçura refrescante.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 14,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Iced Latte Caramelo', 14.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="gelados" data-name="smoothie tropical">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1505252585461-04db1eb84625?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Smoothie Tropical</h3>
+                    <p>Mix de frutas tropicais com iogurte natural. Energizante e saudável.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 12,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Smoothie Tropical', 12.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="cafes" data-name="flat white">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Flat White</h3>
+                    <p>Café australiano com microespuma aveludada. Cremosidade incomparável.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 11,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Flat White', 11.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="doces" data-name="tiramisu soul">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=800&q=80')">
+                    <span class="menu-badge">Premium</span>
+                </div>
+                <div class="menu-item-content">
+                    <h3>Tiramisu Soul</h3>
+                    <p>Tiramisu italiano autêntico com café espresso e mascarpone. Elegância em cada camada.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 16,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Tiramisu Soul', 16.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-item" data-category="salgados" data-name="wrap vegetariano">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <h3>Wrap Vegetariano</h3>
+                    <p>Tortilha integral com vegetais grelhados, hummus e molho tahine. Opção leve e saborosa.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 15,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Wrap Vegetariano', 15.00, this)">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery" class="gallery">
+        <div class="section-header">
+            <div class="section-label">Momentos Especiais</div>
+            <h2 class="section-title">Nossa Galeria</h2>
+            <p class="section-description">Capturas dos melhores momentos no Soul Brew Cafe</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Café Soul Brew">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80" alt="Ambiente aconchegante">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&q=80" alt="Latte Art">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&q=80" alt="Grãos de café">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80" alt="Barista profissional">
+            </div>
+            <div class="gallery-item">
+                <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=80" alt="Doces artesanais">
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="section-header">
+            <div class="section-label">Visite-nos</div>
+            <h2 class="section-title">Entre em Contato</h2>
+            <p class="section-description">Estamos aqui para proporcionar a melhor experiência de café para você</p>
+        </div>
+        <div class="contact">
+            <div class="contact-grid">
+                <div class="contact-item" onclick="window.open('https://maps.google.com', '_blank')">
+                    <div class="contact-icon">📍</div>
+                    <h3>Localização</h3>
+                    <p>Rua da Música, 123<br>Centro - Fortaleza/CE<br>CEP: 60000-000</p>
+                </div>
+                <div class="contact-item" onclick="window.location.href='tel:+558512345678'">
+                    <div class="contact-icon">📞</div>
+                    <h3>Telefone</h3>
+                    <p>(85) 1234-5678<br>WhatsApp disponível<br>Seg-Sáb: 7h-22h</p>
+                </div>
+                <div class="contact-item" onclick="window.location.href='mailto:contato@soulbrew.com.br'">
+                    <div class="contact-icon">✉️</div>
+                    <h3>E-mail</h3>
+                    <p>contato@soulbrew.com.br<br>Respondemos em até 24h<br>Dúvidas e sugestões</p>
+                </div>
+                <div class="contact-item" onclick="window.open('https://instagram.com', '_blank')">
+                    <div class="contact-icon">📱</div>
+                    <h3>Redes Sociais</h3>
+                    <p>@soulbrewcafe<br>Siga-nos no Instagram<br>Novidades diárias</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
         <div class="cart-content">
             <div class="cart-header">
-                <h2><i class="fas fa-shopping-basket" style="color: var(--gold);"></i> Seu Pedido Soul</h2>
-                <button class="close-cart" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+                <h2>🛒 Seu Carrinho</h2>
+                <button class="close-cart" onclick="toggleCart()">×</button>
             </div>
-
+            
             <div class="cart-actions">
-                <button class="clear-cart-btn" onclick="clearCart()">Esvaziar Carrinho</button>
+                <button class="clear-cart-btn" onclick="clearCart()">🗑️ Limpar Carrinho</button>
             </div>
 
-            <div id="cartItems" class="cart-items">
-                <div class="empty-cart" id="emptyCartMessage">
-                    <p style="font-size: 2rem; color: var(--gold); margin-bottom: 0.5rem;"><i class="fas fa-mug-hot"></i></p>
-                    <p>Seu carrinho está vazio. Adicione um pouco de alma!</p>
+            <div class="cart-items" id="cartItems">
+                <div class="empty-cart">
+                    <div class="empty-cart-icon">🛒</div>
+                    <p>Seu carrinho está vazio</p>
                 </div>
             </div>
 
-            <div id="deliverySection" class="delivery-section" style="display: none;">
-                <h3>Opções de Entrega / Retirada</h3>
-                <select id="deliveryOption" onchange="updateDeliveryFee()">
-                    <option value="pickup">Retirada na Loja (Grátis)</option>
-                    <option value="local">Entrega Local (R$ 10,00)</option>
-                    </select>
-                <input type="text" id="addressInput" placeholder="Rua e número para entrega (Se aplicável)" style="display: none;">
+            <div class="delivery-section" id="deliverySection" style="display: none;">
+                <h3>🚚 Informações de Entrega</h3>
+                <select id="deliveryType">
+                    <option value="retirada">Retirar no Local</option>
+                    <option value="delivery">Delivery</option>
+                </select>
+                <input type="text" id="customerName" placeholder="Seu nome" />
+                <input type="tel" id="customerPhone" placeholder="Telefone" />
+                <input type="text" id="customerAddress" placeholder="Endereço completo (apenas para delivery)" style="display: none;" />
             </div>
 
-            <div class="cart-summary">
+            <div class="cart-summary" id="cartSummary" style="display: none;">
                 <div class="summary-row">
                     <span>Subtotal:</span>
                     <span id="subtotal">R$ 0,00</span>
@@ -655,291 +2062,689 @@
                 </div>
                 <div class="summary-row total">
                     <span>Total:</span>
-                    <span id="totalPrice">R$ 0,00</span>
+                    <span id="total">R$ 0,00</span>
                 </div>
             </div>
-            
-            <button id="checkoutBtn" class="checkout-btn" onclick="finalizeOrder()" disabled>
-                 <i class="fab fa-whatsapp"></i> FINALIZAR PEDIDO VIA WHATSAPP
+
+            <button class="checkout-btn" id="checkoutBtn" onclick="checkout()" disabled>
+                Finalizar Pedido
             </button>
         </div>
     </div>
-    
-    <div id="notification" class="notification">Item adicionado ao seu Soul!</div>
+
+    <!-- Notification Toast -->
+    <div class="notification" id="notification">
+        <span class="notification-icon">✓</span>
+        <span id="notificationText">Item adicionado ao carrinho!</span>
+    </div>
+
+    <footer>
+        <p>© 2024 Soul Brew Cafe - Todos os direitos reservados</p>
+        <p>Café com alma, feito com amor ♪</p>
+        <div class="footer-social">
+            <a href="#" class="social-link">📘</a>
+            <a href="#" class="social-link">📷</a>
+            <a href="#" class="social-link">🐦</a>
+        </div>
+    </footer>
 
     <script>
-        // Variáveis globais
-        let cart = JSON.parse(localStorage.getItem('soulBrewCart')) || [];
-        const DELIVERY_FEE_LOCAL = 10.00;
+        // Cart System
+        let cart = [];
 
-        // --- Funções de Navegação e UX ---
-
-        // Rolagem Suave
-        function scrollToSection(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-                closeMobileMenu(); // Fecha o menu após o clique (mobile)
+        // Create animated particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 15 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+                particlesContainer.appendChild(particle);
             }
         }
 
-        // Menu Mobile
-        function toggleMobileMenu() {
-            const navLinks = document.getElementById('navLinks');
-            const menuIcon = document.getElementById('menuIcon');
-            navLinks.classList.toggle('active');
-            menuIcon.classList.toggle('fa-bars');
-            menuIcon.classList.toggle('fa-times');
+        // Animated Counter
+        function animateCounter(element) {
+            const target = parseInt(element.getAttribute('data-target'));
+            const duration = 2000;
+            const increment = target / (duration / 16);
+            let current = 0;
+
+            const updateCounter = () => {
+                current += increment;
+                if (current < target) {
+                    element.textContent = Math.floor(current);
+                    requestAnimationFrame(updateCounter);
+                } else {
+                    element.textContent = target;
+                }
+            };
+
+            updateCounter();
         }
 
-        function closeMobileMenu() {
-            const navLinks = document.getElementById('navLinks');
-            const menuIcon = document.getElementById('menuIcon');
-            if (navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                menuIcon.classList.add('fa-bars');
-                menuIcon.classList.remove('fa-times');
-            }
-        }
-        
-        // Sticky Header e Shadow
+        // Intersection Observer for stats animation
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(num => animateCounter(num));
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Header scroll effect
         window.addEventListener('scroll', () => {
             const header = document.getElementById('header');
-            if (window.scrollY > 50) {
+            if (window.scrollY > 100) {
                 header.classList.add('scrolled');
             } else {
                 header.classList.remove('scrolled');
             }
         });
 
-        // Filtro de Menu
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        function closeMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
+        }
+
+        // Menu Filter
         function filterMenu(category) {
             const items = document.querySelectorAll('.menu-item');
             const buttons = document.querySelectorAll('.filter-btn');
-
-            // Atualiza o estado dos botões de filtro
+            
             buttons.forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.filter-btn[onclick="filterMenu('${category}')"]`).classList.add('active');
-
-            // Exibe/esconde os itens
+            event.target.classList.add('active');
+            
             items.forEach(item => {
-                if (category === 'all' || item.dataset.category === category) {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
                     item.classList.remove('hidden');
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    }, 10);
                 } else {
-                    item.classList.add('hidden');
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        item.classList.add('hidden');
+                    }, 300);
                 }
             });
         }
-        
-        // --- Funções de Carrinho (E-commerce) ---
 
-        function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            modal.classList.toggle('active');
-            if (modal.classList.contains('active')) {
-                renderCart(); // Garante que o carrinho está atualizado ao abrir
-                updateDeliveryFee(); // Calcula a taxa de entrega
-            }
-        }
-
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.classList.add('show');
-            setTimeout(() => {
-                notification.classList.remove('show');
-            }, 2000);
-        }
-
-        function addToCart(button) {
-            const name = button.dataset.name;
-            const price = parseFloat(button.dataset.price);
-            const id = button.dataset.id;
+        // Menu Search
+        function searchMenu() {
+            const searchTerm = document.getElementById('menuSearch').value.toLowerCase();
+            const items = document.querySelectorAll('.menu-item');
             
-            const existingItem = cart.find(item => item.id === id);
+            items.forEach(item => {
+                const name = item.getAttribute('data-name');
+                if (name.includes(searchTerm)) {
+                    item.classList.remove('hidden');
+                    item.style.opacity = '1';
+                    item.style.transform = 'scale(1)';
+                } else {
+                    item.style.opacity = '0';
+                    item.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        item.classList.add('hidden');
+                    }, 300);
+                }
+            });
+        }
 
+        // Add to Cart
+        function addToCart(name, price, button) {
+            const existingItem = cart.find(item => item.name === name);
+            
             if (existingItem) {
-                existingItem.qty++;
+                existingItem.quantity++;
             } else {
-                cart.push({ id, name, price, qty: 1 });
+                cart.push({ name, price, quantity: 1 });
             }
-
-            localStorage.setItem('soulBrewCart', JSON.stringify(cart));
-            updateCartUI();
-            showNotification(`${name} adicionado!`);
+            
+            updateCart();
+            showNotification(`${name} adicionado ao carrinho!`);
+            
+            // Button animation
+            button.classList.add('added');
+            button.textContent = 'Adicionado';
+            setTimeout(() => {
+                button.classList.remove('added');
+                button.textContent = 'Adicionar';
+            }, 1500);
         }
 
-        function updateCartUI() {
-            const count = cart.reduce((sum, item) => sum + item.qty, 0);
-            document.getElementById('cartCount').textContent = count;
-            
-            // Habilita/desabilita botão de checkout
+        // Update Cart
+        function updateCart() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const deliverySection = document.getElementById('deliverySection');
+            const cartSummary = document.getElementById('cartSummary');
             const checkoutBtn = document.getElementById('checkoutBtn');
-            checkoutBtn.disabled = cart.length === 0;
             
-            // Esconde/mostra a seção de entrega
-            document.getElementById('deliverySection').style.display = cart.length > 0 ? 'block' : 'none';
-        }
-
-        function renderCart() {
-            const cartItemsContainer = document.getElementById('cartItems');
-            const emptyMessage = document.getElementById('emptyCartMessage');
-            
-            cartItemsContainer.innerHTML = '';
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
             
             if (cart.length === 0) {
-                emptyMessage.style.display = 'block';
-                cartItemsContainer.appendChild(emptyMessage);
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>Seu carrinho está vazio</p>
+                    </div>
+                `;
+                deliverySection.style.display = 'none';
+                cartSummary.style.display = 'none';
+                checkoutBtn.disabled = true;
             } else {
-                emptyMessage.style.display = 'none';
-                
-                cart.forEach(item => {
-                    const itemElement = document.createElement('div');
-                    itemElement.classList.add('cart-item');
-                    
-                    const subtotalItem = (item.price * item.qty).toFixed(2).replace('.', ',');
-
-                    itemElement.innerHTML = `
+                cartItems.innerHTML = cart.map((item, index) => `
+                    <div class="cart-item">
                         <div class="cart-item-info">
                             <h4>${item.name}</h4>
-                            <p>R$ ${item.price.toFixed(2).replace('.', ',')} cada</p>
-                            <p style="color: var(--accent); font-weight: 600;">Subtotal: R$ ${subtotalItem}</p>
+                            <p>R$ ${item.price.toFixed(2)}</p>
                         </div>
                         <div class="cart-item-controls">
                             <div class="qty-controls">
-                                <button class="qty-btn" onclick="changeQty('${item.id}', -1)">-</button>
-                                <span class="qty-display">${item.qty}</span>
-                                <button class="qty-btn" onclick="changeQty('${item.id}', 1)">+</button>
+                                <button class="qty-btn" onclick="decreaseQuantity(${index})">-</button>
+                                <span class="qty-display">${item.quantity}</span>
+                                <button class="qty-btn" onclick="increaseQuantity(${index})">+</button>
                             </div>
-                            <button class="remove-item" onclick="removeItem('${item.id}')"><i class="fas fa-trash-alt"></i></button>
+                            <button class="remove-item" onclick="removeItem(${index})">Remover</button>
                         </div>
-                    `;
-                    cartItemsContainer.appendChild(itemElement);
-                });
-            }
-            updateTotals();
-        }
-
-        function changeQty(id, change) {
-            const item = cart.find(i => i.id === id);
-            if (item) {
-                item.qty += change;
-                if (item.qty <= 0) {
-                    removeItem(id);
-                } else {
-                    localStorage.setItem('soulBrewCart', JSON.stringify(cart));
-                    renderCart();
-                    updateCartUI();
-                }
+                    </div>
+                `).join('');
+                
+                deliverySection.style.display = 'block';
+                cartSummary.style.display = 'block';
+                checkoutBtn.disabled = false;
+                
+                updateSummary();
             }
         }
 
-        function removeItem(id) {
-            cart = cart.filter(item => item.id !== id);
-            localStorage.setItem('soulBrewCart', JSON.stringify(cart));
-            renderCart();
-            updateCartUI();
-            if (cart.length === 0) updateDeliveryFee(); // Recalcula a taxa se esvaziar
+        // Cart Quantity Controls
+        function increaseQuantity(index) {
+            cart[index].quantity++;
+            updateCart();
+        }
+
+        function decreaseQuantity(index) {
+            if (cart[index].quantity > 1) {
+                cart[index].quantity--;
+            } else {
+                cart.splice(index, 1);
+            }
+            updateCart();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            updateCart();
+            showNotification('Item removido do carrinho');
         }
 
         function clearCart() {
-            cart = [];
-            localStorage.removeItem('soulBrewCart');
-            renderCart();
-            updateCartUI();
-            updateDeliveryFee();
-        }
-
-        function updateDeliveryFee() {
-            const selector = document.getElementById('deliveryOption');
-            const addressInput = document.getElementById('addressInput');
-            let fee = 0;
-            
-            if (selector.value === 'local') {
-                fee = DELIVERY_FEE_LOCAL;
-                addressInput.style.display = 'block';
-                addressInput.required = true;
-            } else {
-                fee = 0;
-                addressInput.style.display = 'none';
-                addressInput.required = false;
+            if (confirm('Deseja realmente limpar o carrinho?')) {
+                cart = [];
+                updateCart();
+                showNotification('Carrinho limpo');
             }
-
-            document.getElementById('deliveryFee').textContent = `R$ ${fee.toFixed(2).replace('.', ',')}`;
-            updateTotals();
         }
 
-        function updateTotals() {
-            const subtotalValue = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-            const deliveryFeeText = document.getElementById('deliveryFee').textContent;
-            const deliveryFeeValue = parseFloat(deliveryFeeText.replace('R$ ', '').replace(',', '.'));
+        // Update Summary
+        function updateSummary() {
+            const deliveryType = document.getElementById('deliveryType').value;
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = deliveryType === 'delivery' ? 5.00 : 0;
+            const total = subtotal + deliveryFee;
             
-            const totalValue = subtotalValue + deliveryFeeValue;
-
-            document.getElementById('subtotal').textContent = `R$ ${subtotalValue.toFixed(2).replace('.', ',')}`;
-            document.getElementById('totalPrice').textContent = `R$ ${totalValue.toFixed(2).replace('.', ',')}`;
-        }
-        
-        // --- FINALIZAR PEDIDO VIA WHATSAPP (Melhoria Crítica de Conversão) ---
-        function finalizeOrder() {
-            if (cart.length === 0) return;
-            
-            const deliveryOption = document.getElementById('deliveryOption').value;
-            let message = "Olá, gostaria de fazer o seguinte pedido do Soul Brew Cafe:\n\n";
-            let total = 0;
-
-            cart.forEach(item => {
-                const itemTotal = item.price * item.qty;
-                total += itemTotal;
-                message += `${item.qty}x ${item.name} (R$ ${itemTotal.toFixed(2).replace('.', ',')})\n`;
-            });
-            
-            message += "\n---\n";
-            message += `Subtotal: R$ ${total.toFixed(2).replace('.', ',')}\n`;
-
-            let fee = 0;
-            let deliveryDetails = '';
-            
-            if (deliveryOption === 'local') {
-                fee = DELIVERY_FEE_LOCAL;
-                const address = document.getElementById('addressInput').value || 'ENDEREÇO PENDENTE';
-                deliveryDetails = `Entrega Local (Taxa: R$ ${fee.toFixed(2).replace('.', ',')})\nEndereço: ${address}`;
-            } else {
-                deliveryDetails = "Opção: Retirada na Loja (Grátis)";
-            }
-
-            total += fee;
-            
-            message += deliveryDetails + "\n";
-            message += `TOTAL GERAL: R$ ${total.toFixed(2).replace('.', ',')}\n\n`;
-            message += "Por favor, confirme a forma de pagamento e o tempo de entrega/retirada. Obrigado!";
-
-            // Número de WhatsApp (Altere para o seu número real)
-            const whatsappNumber = '5511987654321'; 
-            const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-            window.open(whatsappLink, '_blank');
-            
-            // Sugestão: Limpar o carrinho após a finalização (opcional)
-            // clearCart();
-            // toggleCart();
+            document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2)}`;
+            document.getElementById('deliveryFee').textContent = `R$ ${deliveryFee.toFixed(2)}`;
+            document.getElementById('total').textContent = `R$ ${total.toFixed(2)}`;
         }
 
-        // Adiciona listeners aos botões de adicionar ao carrinho
+        // Delivery Type Change
         document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-                button.addEventListener('click', () => addToCart(button));
-            });
-            updateCartUI(); // Inicializa a UI do carrinho ao carregar a página
-            filterMenu('all'); // Garante que todos os itens estejam visíveis inicialmente
+            const deliveryType = document.getElementById('deliveryType');
+            const addressInput = document.getElementById('customerAddress');
             
-            // Adiciona o listener para o seletor de entrega
-            const deliveryOption = document.getElementById('deliveryOption');
-            if (deliveryOption) {
-                deliveryOption.addEventListener('change', updateDeliveryFee);
-                updateDeliveryFee(); // Inicializa a taxa ao carregar
+            if (deliveryType) {
+                deliveryType.addEventListener('change', () => {
+                    if (deliveryType.value === 'delivery') {
+                        addressInput.style.display = 'block';
+                    } else {
+                        addressInput.style.display = 'none';
+                    }
+                    updateSummary();
+                });
             }
         });
+
+        // Toggle Cart Modal
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.classList.toggle('active');
+            if (cartModal.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Checkout
+        function checkout() {
+            const name = document.getElementById('customerName').value;
+            const phone = document.getElementById('customerPhone').value;
+            const deliveryType = document.getElementById('deliveryType').value;
+            const address = document.getElementById('customerAddress').value;
+            
+            if (!name || !phone) {
+                alert('Por favor, preencha seu nome e telefone');
+                return;
+            }
+            
+            if (deliveryType === 'delivery' && !address) {
+                alert('Por favor, preencha seu endereço');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = deliveryType === 'delivery' ? 5.00 : 0;
+            const finalTotal = total + deliveryFee;
+            
+            let message = `🎵 *NOVO PEDIDO - SOUL BREW CAFE* ☕\n\n`;
+            message += `👤 *Cliente:* ${name}\n`;
+            message += `📞 *Telefone:* ${phone}\n`;
+            message += `🚚 *Tipo:* ${deliveryType === 'delivery' ? 'Delivery' : 'Retirada no Local'}\n`;
+            
+            if (deliveryType === 'delivery') {
+                message += `📍 *Endereço:* ${address}\n`;
+            }
+            
+            message += `\n*ITENS DO PEDIDO:*\n`;
+            message += `${'─'.repeat(30)}\n`;
+            
+            cart.forEach(item => {
+                message += `• ${item.quantity}x ${item.name}\n`;
+                message += `  R$ ${item.price.toFixed(2)} x ${item.quantity} = R$ ${(item.price * item.quantity).toFixed(2)}\n\n`;
+            });
+            
+            message += `${'─'.repeat(30)}\n`;
+            message += `💰 *Subtotal:* R$ ${total.toFixed(2)}\n`;
+            
+            if (deliveryType === 'delivery') {
+                message += `🚚 *Taxa de Entrega:* R$ ${deliveryFee.toFixed(2)}\n`;
+            }
+            
+            message += `\n✨ *TOTAL:* R$ ${finalTotal.toFixed(2)}\n`;
+            message += `\n_Obrigado por escolher o Soul Brew Cafe!_ ♪`;
+            
+            // Encode message for WhatsApp
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappURL = `https://wa.me/558512345678?text=${encodedMessage}`;
+            
+            // Open WhatsApp
+            window.open(whatsappURL, '_blank');
+            
+            // Clear cart and close modal
+            setTimeout(() => {
+                cart = [];
+                updateCart();
+                toggleCart();
+                showNotification('Pedido enviado! Aguarde nosso contato.');
+                
+                // Clear form
+                document.getElementById('customerName').value = '';
+                document.getElementById('customerPhone').value = '';
+                document.getElementById('customerAddress').value = '';
+            }, 1000);
+        }
+
+        // Show Notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const notificationText = document.getElementById('notificationText');
+            
+            notificationText.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
+        // Close cart when clicking outside
+        document.getElementById('cartModal').addEventListener('click', (e) => {
+            if (e.target.id === 'cartModal') {
+                toggleCart();
+            }
+        });
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            createParticles();
+            
+            // Observe stats section
+            const statsSection = document.querySelector('.stats');
+            if (statsSection) {
+                statsObserver.observe(statsSection);
+            }
+            
+            // Add fade-in animation to sections
+            const sections = document.querySelectorAll('section');
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'all 0.8s ease-out';
+                sectionObserver.observe(section);
+            });
+
+            // Keyboard shortcuts
+            document.addEventListener('keydown', (e) => {
+                // ESC to close cart
+                if (e.key === 'Escape') {
+                    const cartModal = document.getElementById('cartModal');
+                    if (cartModal.classList.contains('active')) {
+                        toggleCart();
+                    }
+                }
+                
+                // Ctrl/Cmd + K to focus search
+                if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+                    e.preventDefault();
+                    document.getElementById('menuSearch').focus();
+                }
+            });
+
+            // Add loading animation
+            window.addEventListener('load', () => {
+                document.body.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.style.transition = 'opacity 0.5s ease';
+                    document.body.style.opacity = '1';
+                }, 100);
+            });
+
+            // Image lazy loading with fade-in effect
+            const images = document.querySelectorAll('img');
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.style.opacity = '0';
+                        img.style.transition = 'opacity 0.5s ease';
+                        
+                        img.onload = () => {
+                            img.style.opacity = '1';
+                        };
+                        
+                        if (img.complete) {
+                            img.style.opacity = '1';
+                        }
+                        
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+            
+            images.forEach(img => imageObserver.observe(img));
+
+            // Add hover sound effect (optional - can be enabled)
+            const addSoundEffects = false; // Set to true to enable
+            if (addSoundEffects) {
+                const buttons = document.querySelectorAll('button, .cta-button');
+                buttons.forEach(btn => {
+                    btn.addEventListener('mouseenter', () => {
+                        // You can add audio here if desired
+                        // const audio = new Audio('hover-sound.mp3');
+                        // audio.play();
+                    });
+                });
+            }
+
+            // Performance monitoring
+            if ('PerformanceObserver' in window) {
+                const perfObserver = new PerformanceObserver((list) => {
+                    for (const entry of list.getEntries()) {
+                        if (entry.entryType === 'largest-contentful-paint') {
+                            console.log('LCP:', entry.startTime);
+                        }
+                    }
+                });
+                
+                try {
+                    perfObserver.observe({ entryTypes: ['largest-contentful-paint'] });
+                } catch (e) {
+                    // Browser doesn't support LCP
+                }
+            }
+
+            // Add right-click protection for images (optional)
+            const protectImages = false; // Set to true to enable
+            if (protectImages) {
+                document.querySelectorAll('img').forEach(img => {
+                    img.addEventListener('contextmenu', (e) => {
+                        e.preventDefault();
+                        showNotification('Imagens protegidas ©');
+                    });
+                });
+            }
+
+            // Add scroll progress indicator
+            const createScrollIndicator = () => {
+                const indicator = document.createElement('div');
+                indicator.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    height: 3px;
+                    background: linear-gradient(90deg, var(--gold), #f4d03f);
+                    z-index: 9999;
+                    transition: width 0.1s ease;
+                `;
+                document.body.appendChild(indicator);
+
+                window.addEventListener('scroll', () => {
+                    const winScroll = document.documentElement.scrollTop;
+                    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    const scrolled = (winScroll / height) * 100;
+                    indicator.style.width = scrolled + '%';
+                });
+            };
+            
+            createScrollIndicator();
+
+            // Add "Back to Top" button
+            const createBackToTop = () => {
+                const button = document.createElement('button');
+                button.innerHTML = '↑';
+                button.style.cssText = `
+                    position: fixed;
+                    bottom: 6rem;
+                    right: 2rem;
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    background: linear-gradient(135deg, var(--gold), #f4d03f);
+                    color: var(--dark);
+                    border: none;
+                    font-size: 1.5rem;
+                    font-weight: bold;
+                    cursor: pointer;
+                    opacity: 0;
+                    transform: scale(0);
+                    transition: all 0.3s ease;
+                    z-index: 999;
+                    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+                `;
+                
+                button.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 500) {
+                        button.style.opacity = '1';
+                        button.style.transform = 'scale(1)';
+                    } else {
+                        button.style.opacity = '0';
+                        button.style.transform = 'scale(0)';
+                    }
+                });
+
+                button.addEventListener('mouseenter', () => {
+                    button.style.transform = 'scale(1.1)';
+                });
+
+                button.addEventListener('mouseleave', () => {
+                    button.style.transform = 'scale(1)';
+                });
+
+                document.body.appendChild(button);
+            };
+
+            createBackToTop();
+
+            // Add cookie consent (optional)
+            const showCookieConsent = false; // Set to true to enable
+            if (showCookieConsent && !localStorage.getItem('cookieConsent')) {
+                const consent = document.createElement('div');
+                consent.style.cssText = `
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    background: rgba(26, 20, 16, 0.98);
+                    padding: 1.5rem;
+                    text-align: center;
+                    z-index: 9999;
+                    border-top: 2px solid var(--gold);
+                `;
+                
+                consent.innerHTML = `
+                    <p style="color: var(--cream); margin-bottom: 1rem;">
+                        🍪 Usamos cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa política de privacidade.
+                    </p>
+                    <button onclick="this.parentElement.remove(); localStorage.setItem('cookieConsent', 'true');" 
+                            style="padding: 0.6rem 1.5rem; background: var(--gold); color: var(--dark); border: none; border-radius: 25px; cursor: pointer; font-weight: 600;">
+                        Entendi
+                    </button>
+                `;
+                
+                document.body.appendChild(consent);
+            }
+
+            // Initialize AOS (Animate On Scroll) alternative
+            const animateOnScroll = () => {
+                const elements = document.querySelectorAll('.menu-item, .gallery-item, .contact-item');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry, index) => {
+                        if (entry.isIntersecting) {
+                            setTimeout(() => {
+                                entry.target.style.opacity = '1';
+                                entry.target.style.transform = 'translateY(0)';
+                            }, index * 50);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.1 });
+
+                elements.forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.transform = 'translateY(30px)';
+                    el.style.transition = 'all 0.6s ease-out';
+                    observer.observe(el);
+                });
+            };
+
+            animateOnScroll();
+
+            // Add custom cursor effect (optional)
+            const customCursor = false; // Set to true to enable
+            if (customCursor) {
+                const cursor = document.createElement('div');
+                cursor.style.cssText = `
+                    position: fixed;
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    background: var(--gold);
+                    pointer-events: none;
+                    z-index: 10000;
+                    mix-blend-mode: difference;
+                    transition: transform 0.2s ease;
+                `;
+                document.body.appendChild(cursor);
+
+                document.addEventListener('mousemove', (e) => {
+                    cursor.style.left = e.clientX - 10 + 'px';
+                    cursor.style.top = e.clientY - 10 + 'px';
+                });
+
+                document.querySelectorAll('a, button').forEach(el => {
+                    el.addEventListener('mouseenter', () => {
+                        cursor.style.transform = 'scale(2)';
+                    });
+                    el.addEventListener('mouseleave', () => {
+                        cursor.style.transform = 'scale(1)';
+                    });
+                });
+            }
+
+            // Print welcome message
+            console.log('%c🎵 Soul Brew Cafe ☕', 'font-size: 24px; font-weight: bold; color: #d4a574;');
+            console.log('%cOnde a música encontra o café', 'font-size: 14px; color: #f4e4d7;');
+            console.log('%cWebsite desenvolvido com ❤️ e muito café', 'font-size: 12px; font-style: italic; color: #d4a574;');
+        });
+
+        // Handle online/offline status
+        window.addEventListener('online', () => {
+            showNotification('✅ Conexão restaurada!');
+        });
+
+        window.addEventListener('offline', () => {
+            showNotification('⚠️ Sem conexão com a internet');
+        });
+
+        // Prevent form resubmission on page refresh
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
     </script>
 </body>
 </html>
