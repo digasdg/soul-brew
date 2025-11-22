@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soul Brew Cafe - Café com Alma</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap');
 
@@ -28,6 +29,19 @@
             overflow-x: hidden;
         }
 
+        /* Estilos de Tipografia e Global */
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        /* HEADER */
         header {
             position: fixed;
             width: 100%;
@@ -134,6 +148,7 @@
             cursor: pointer;
         }
 
+        /* HERO Section */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -230,6 +245,7 @@
             transform: translateY(-5px);
         }
 
+        /* Seções Gerais */
         section {
             padding: 5rem 5%;
             max-width: 1400px;
@@ -266,6 +282,7 @@
             line-height: 1.7;
         }
 
+        /* ABOUT Section */
         .about {
             background: linear-gradient(135deg, rgba(67, 40, 24, 0.4), rgba(26, 20, 16, 0.6));
             border-radius: 20px;
@@ -307,6 +324,34 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
+        /* MENU Section */
+        .category-filter {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.8rem;
+            background: rgba(67, 40, 24, 0.3);
+            color: var(--cream);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--gold);
+            color: var(--dark);
+            border-color: var(--gold);
+            transform: translateY(-2px);
+        }
+
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -322,6 +367,10 @@
             border: 1px solid rgba(212, 165, 116, 0.2);
         }
 
+        .menu-item.hidden {
+            display: none;
+        }
+
         .menu-item:hover {
             transform: translateY(-8px);
             border-color: var(--gold);
@@ -333,6 +382,20 @@
             height: 220px;
             background-size: cover;
             background-position: center;
+            position: relative;
+        }
+
+        .menu-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
         .menu-item-content {
@@ -390,6 +453,7 @@
             color: white;
         }
 
+        /* GALLERY Section */
         .gallery {
             background: rgba(67, 40, 24, 0.2);
             padding: 5rem 5%;
@@ -428,6 +492,7 @@
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
 
+        /* CONTACT Section */
         .contact {
             background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(67, 40, 24, 0.3));
             border-radius: 20px;
@@ -450,6 +515,12 @@
             transition: all 0.3s ease;
         }
 
+        .contact-item i {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
         .contact-item:hover {
             transform: translateY(-5px);
             background: rgba(212, 165, 116, 0.1);
@@ -468,6 +539,37 @@
             line-height: 1.6;
         }
 
+        .contact-item a {
+            color: var(--cream);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--gold);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2.5rem 1rem;
+            background: rgba(15, 10, 8, 0.8);
+            color: var(--gold);
+            border-top: 1px solid rgba(212, 165, 116, 0.2);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+
+        footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+
+        /* CART MODAL */
         .cart-modal {
             display: none;
             position: fixed;
@@ -528,6 +630,29 @@
 
         .close-cart:hover {
             color: var(--accent);
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .clear-cart-btn {
+            padding: 0.6rem 1.2rem;
+            background: rgba(255, 107, 53, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .clear-cart-btn:hover {
+            background: var(--accent);
+            color: white;
         }
 
         .cart-items {
@@ -594,18 +719,17 @@
         }
 
         .remove-item {
-            background: var(--accent);
-            color: white;
+            background: none;
+            color: var(--accent);
             border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
+            font-size: 1.5rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            font-size: 0.85rem;
         }
 
         .remove-item:hover {
-            background: #ff4520;
+            color: #ff4520;
+            transform: scale(1.1);
         }
 
         .delivery-section {
@@ -622,7 +746,7 @@
             font-size: 1.2rem;
         }
 
-        .delivery-section select {
+        .delivery-section select, .delivery-section input {
             width: 100%;
             padding: 1rem;
             background: var(--dark);
@@ -632,6 +756,11 @@
             font-size: 0.95rem;
             cursor: pointer;
             font-family: 'Montserrat', sans-serif;
+            margin-bottom: 0.8rem;
+        }
+
+        .delivery-section input::placeholder {
+            color: rgba(244, 228, 215, 0.5);
         }
 
         .cart-summary {
@@ -678,6 +807,12 @@
             box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4);
         }
 
+        .checkout-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .empty-cart {
             text-align: center;
             padding: 3rem 1rem;
@@ -688,19 +823,25 @@
             font-size: 1.1rem;
         }
 
-        footer {
-            text-align: center;
-            padding: 2.5rem 1rem;
-            background: rgba(15, 10, 8, 0.8);
-            color: var(--gold);
-            border-top: 1px solid rgba(212, 165, 116, 0.2);
+        .notification {
+            position: fixed;
+            bottom: -100px;
+            right: 2rem;
+            background: var(--gold);
+            color: var(--dark);
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            z-index: 3000;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        footer p {
-            font-size: 0.9rem;
-            line-height: 1.6;
+        .notification.show {
+            bottom: 2rem;
         }
 
+        /* MEDIA QUERIES (Responsividade) */
         @media (max-width: 968px) {
             .hero h1 {
                 font-size: 3.5rem;
@@ -730,7 +871,7 @@
 
             .nav-links {
                 position: fixed;
-                top: 70px;
+                top: 70px; /* Ajuste para o tamanho do header fixo */
                 left: -100%;
                 width: 100%;
                 height: calc(100vh - 70px);
@@ -741,6 +882,9 @@
                 transition: left 0.3s ease;
                 border-top: 1px solid rgba(212, 165, 116, 0.3);
                 z-index: 999;
+                /* Remove o item do carrinho da lista no mobile e o coloca no topo do menu */
+                align-items: center; 
+                justify-content: flex-start;
             }
 
             .nav-links.active {
@@ -760,6 +904,7 @@
             .cart-button {
                 width: 100%;
                 max-width: 250px;
+                margin-top: 1rem;
             }
 
             .mobile-menu-btn {
@@ -851,6 +996,11 @@
                 flex: 1;
                 min-width: 120px;
             }
+
+            .notification {
+                right: 1rem;
+                left: 1rem;
+            }
         }
 
         @media (max-width: 480px) {
@@ -872,7 +1022,9 @@
     <header id="header">
         <nav>
             <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">SOUL BREW</div>
-            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars" id="menuIcon"></i>
+            </button>
             <ul class="nav-links" id="navLinks">
                 <li><a href="#home" onclick="closeMobileMenu()">Início</a></li>
                 <li><a href="#about" onclick="closeMobileMenu()">Sobre</a></li>
@@ -881,7 +1033,7 @@
                 <li><a href="#contact" onclick="closeMobileMenu()">Contato</a></li>
                 <li>
                     <button class="cart-button" onclick="toggleCart(); closeMobileMenu();">
-                        Carrinho
+                        <i class="fas fa-shopping-cart"></i> Carrinho
                         <span class="cart-count" id="cartCount">0</span>
                     </button>
                 </li>
@@ -889,390 +1041,557 @@
         </nav>
     </header>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <div class="hero-subtitle">Onde a Música Encontra o Café</div>
-            <h1>SOUL BREW CAFE</h1>
-            <p>Cada xícara conta uma história, cada gole toca sua alma</p>
-            <div class="cta-buttons">
-                <a href="#menu" class="cta-button primary">Ver Menu</a>
-                <a href="#contact" class="cta-button secondary">Localização</a>
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <div class="hero-subtitle">Onde a Música Encontra o Café</div>
+                <h1>SOUL BREW CAFE</h1>
+                <p>Cada xícara conta uma história, cada gole toca sua alma</p>
+                <div class="cta-buttons">
+                    <a href="#menu" class="cta-button primary">Ver Menu</a>
+                    <a href="#contact" class="cta-button secondary">Localização</a>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="about">
-        <div class="section-header">
-            <div class="section-label">Nossa Essência</div>
-            <h2 class="section-title">A Alma do Café</h2>
-            <p class="section-description">Mais do que um café, somos um refúgio para quem busca autenticidade, sabor e conexão</p>
-        </div>
-        <div class="about">
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Nascido da Paixão pela Música Soul</h3>
-                    <p>No Soul Brew Cafe, cada xícara é uma nota musical, cada aroma é uma melodia. Inspirados pelos ritmos da música soul, criamos um espaço onde o café artesanal se encontra com a cultura e a autenticidade.</p>
-                    <p>Nossos grãos são selecionados de fazendas sustentáveis, torrados com maestria e preparados com dedicação. Aqui, você não apenas toma café, você vive uma experiência sensorial completa.</p>
-                    <p>Venha descobrir o verdadeiro sabor do café com alma, em um ambiente que celebra a boa música, o calor humano e momentos inesquecíveis.</p>
-                </div>
-                <div class="about-image"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="menu">
-        <div class="section-header">
-            <div class="section-label">Sabores que Tocam a Alma</div>
-            <h2 class="section-title">Nosso Menu</h2>
-            <p class="section-description">Cada bebida é uma composição única criada para despertar seus sentidos</p>
-        </div>
-        <div class="menu-grid">
-            <div class="menu-item">
-                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=800&q=80')"></div>
-                <div class="menu-item-content">
-                    <h3>Soul Espresso</h3>
-                    <p>Intenso e encorpado. Nosso espresso artesanal feito com grãos arábica especiais que tocam sua alma.</p>
-                    <div class="menu-footer">
-                        <div class="price">R$ 8,00</div>
-                        <button class="add-to-cart-btn" onclick="addToCart('Mocha Rhythm', 14.00)">Adicionar</button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&q=80')"></div>
-                <div class="menu-item-content">
-                    <h3>Cold Brew Funk</h3>
-                    <p>Extraído a frio por 24 horas, suave e refrescante. O café do verão com personalidade.</p>
-                    <div class="menu-footer">
-                        <div class="price">R$ 13,00</div>
-                        <button class="add-to-cart-btn" onclick="addToCart('Cold Brew Funk', 13.00)">Adicionar</button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&q=80')"></div>
-                <div class="menu-item-content">
-                    <h3>Soul Latte</h3>
-                    <p>Nosso clássico latte com leite vaporizado perfeitamente e um toque de baunilha.</p>
-                    <div class="menu-footer">
-                        <div class="price">R$ 11,00</div>
-                        <button class="add-to-cart-btn" onclick="addToCart('Soul Latte', 11.00)">Adicionar</button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&q=80')"></div>
-                <div class="menu-item-content">
-                    <h3>Brownie Blues</h3>
-                    <p>Brownie de chocolate belga com nozes. A sobremesa que completa sua experiência soul.</p>
-                    <div class="menu-footer">
-                        <div class="price">R$ 9,00</div>
-                        <button class="add-to-cart-btn" onclick="addToCart('Brownie Blues', 9.00)">Adicionar</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="gallery" class="gallery">
-        <div class="section-header">
-            <div class="section-label">Momentos Soul</div>
-            <h2 class="section-title">Nossa Galeria</h2>
-            <p class="section-description">Momentos e sabores que capturam a essência do Soul Brew</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=80" alt="Café">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80" alt="Latte Art">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80" alt="Ambiente">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1501492673258-6d2f4d9d7bcc?w=600&q=80" alt="Grãos">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&q=80" alt="Café Especial">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=600&q=80" alt="Café Coado">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80" alt="Espaço">
-            </div>
-            <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=600&q=80" alt="Cappuccino">
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="contact">
+        <section id="about">
             <div class="section-header">
-                <div class="section-label">Encontre-nos</div>
+                <div class="section-label">Nossa Essência</div>
+                <h2 class="section-title">A Alma do Café</h2>
+                <p class="section-description">Mais do que um café, somos um refúgio para quem busca autenticidade, sabor e conexão</p>
+            </div>
+            <div class="about">
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>Nascido da Paixão pela Música Soul</h3>
+                        <p>No **Soul Brew Cafe**, cada xícara é uma nota musical, cada aroma é uma melodia. Inspirados pelos ritmos da música soul, criamos um espaço onde o café artesanal se encontra com a cultura e a autenticidade.</p>
+                        <p>Nossos grãos são selecionados de **fazendas sustentáveis**, torrados com maestria e preparados com dedicação. Aqui, você não apenas toma café, você vive uma experiência sensorial completa.</p>
+                        <p>Venha descobrir o verdadeiro sabor do café com alma, em um ambiente que celebra a boa música, o calor humano e momentos inesquecíveis.</p>
+                    </div>
+                    <div class="about-image"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="menu">
+            <div class="section-header">
+                <div class="section-label">Sabores que Tocam a Alma</div>
+                <h2 class="section-title">Nosso Menu</h2>
+                <p class="section-description">Cada bebida é uma composição única criada para despertar seus sentidos</p>
+            </div>
+            
+            <div class="category-filter">
+                <button class="filter-btn active" onclick="filterMenu('all')">Todos</button>
+                <button class="filter-btn" onclick="filterMenu('cafes')">Cafés Quentes</button>
+                <button class="filter-btn" onclick="filterMenu('gelados')">Bebidas Geladas</button>
+                <button class="filter-btn" onclick="filterMenu('doces')">Doces</button>
+                <button class="filter-btn" onclick="filterMenu('salgados')">Salgados</button>
+            </div>
+
+            <div class="menu-grid">
+                <div class="menu-item" data-category="cafes">
+                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=800&q=80')"></div>
+                    <div class="menu-item-content">
+                        <h3>Soul Espresso</h3>
+                        <p>Intenso e encorpado. Nosso espresso artesanal feito com grãos arábica especiais que tocam sua alma.</p>
+                        <div class="menu-footer">
+                            <div class="price">R$ 8,00</div>
+                            <button class="add-to-cart-btn" data-name="Soul Espresso" data-price="8.00">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="cafes">
+                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800&q=80')">
+                        <span class="menu-badge">Popular</span>
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Cappuccino Groove</h3>
+                        <p>Cremoso e suave, com latte art que dança na espuma. Perfeito para momentos contemplativos.</p>
+                        <div class="menu-footer">
+                            <div class="price">R$ 12,00</div>
+                            <button class="add-to-cart-btn" data-name="Cappuccino Groove" data-price="12.00">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="cafes">
+                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1578374173705-7ab52b6f9be0?w=800&q=80')"></div>
+                    <div class="menu-item-content">
+                        <h3>Mocha Rhythm</h3>
+                        <p>Chocolate belga premium encontra café especial numa harmonia perfeita de sabores.</p>
+                        <div class="menu-footer">
+                            <div class="price">R$ 14,00</div>
+                            <button class="add-to-cart-btn" data-name="Mocha Rhythm" data-price="14.00">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="cafes">
+                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&q=80')"></div>
+                    <div class="menu-item-content">
+                        <h3>Soul Latte</h3>
+                        <p>Nosso clássico latte com leite vaporizado perfeitamente e um toque de baunilha.</p>
+                        <div class="menu-footer">
+                            <div class="price">R$ 11,00</div>
+                            <button class="add-to-cart-btn" data-name="Soul Latte" data-price="11.00">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="menu-item" data-category="gelados">
+                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1594950280800-4e311a3617ed?w=800&q=80')">
+                        <span class="menu-badge">Novidade</span>
+                    </div>
+                    <div class="menu-item-content">
+                        <h3>Iced Soul Shaker</h3>
+                        <p>Café gelado batido, levemente adocicado com caramelo salgado. Refrescante e viciante.</p>
+                        <div class="menu-footer">
+                            <div class="price">R$ 15,00</div>
+                            <button class="add-to-cart-btn" data-name="Iced Soul Shaker" data-price="15.00">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="gelados">
+                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1534066547144-8d4e9d7d2422?w=800&q=80')"></div>
+                    <div class="menu-item-content">
+                        <h3>Chai Frappé</h3>
+                        <p>Mistura de chá chai com especiarias e leite cremoso, servido com gelo e finalizado com chantilly.</p>
+                        <div class="menu-footer">
+                            <div class="price">R$ 13,00</div>
+                            <button class="add-to-cart-btn" data-name="Chai Frappé" data-price="13.00">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="doces">
+                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1548679161-0d3020612450?w=800&q=80')"></div>
+                    <div class="menu-item-content">
+                        <h3>Brownie de Chocolate</h3>
+                        <p>Nosso clássico brownie, denso por dentro e crocante por fora, com nozes pecã.</p>
+                        <div class="menu-footer">
+                            <div class="price">R$ 10,00</div>
+                            <button class="add-to-cart-btn" data-name="Brownie de Chocolate" data-price="10.00">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="doces">
+                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1551221469-80470d068593?w=800&q=80')"></div>
+                    <div class="menu-item-content">
+                        <h3>Torta Red Velvet</h3>
+                        <p>Fatias generosas de bolo aveludado, com recheio cremoso de cream cheese.</p>
+                        <div class="menu-footer">
+                            <div class="price">R$ 16,00</div>
+                            <button class="add-to-cart-btn" data-name="Torta Red Velvet" data-price="16.00">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="salgados">
+                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1532550907401-ab761f77d530?w=800&q=80')"></div>
+                    <div class="menu-item-content">
+                        <h3>Pão de Queijo Recheado</h3>
+                        <p>Pão de queijo tradicional mineiro, com recheio de queijo canastra meia-cura.</p>
+                        <div class="menu-footer">
+                            <div class="price">R$ 7,00</div>
+                            <button class="add-to-cart-btn" data-name="Pão de Queijo Recheado" data-price="7.00">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item" data-category="salgados">
+                    <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1528643198889-408a287957e8?w=800&q=80')"></div>
+                    <div class="menu-item-content">
+                        <h3>Croissant de Presunto e Queijo</h3>
+                        <p>Massa folhada francesa, manteiga, presunto de parma e queijo brie. Simplesmente delicioso.</p>
+                        <div class="menu-footer">
+                            <div class="price">R$ 18,00</div>
+                            <button class="add-to-cart-btn" data-name="Croissant de Presunto e Queijo" data-price="18.00">Adicionar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="gallery">
+            <div class="section-header">
+                <div class="section-label">Nossos Momentos</div>
+                <h2 class="section-title">Galeria de Sabores</h2>
+                <p class="section-description">Uma amostra do nosso ambiente acolhedor e das nossas criações mais amadas.</p>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1509785121886-c93d987ac8f2?w=500&q=80" alt="Grãos de Café e Filtro"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1497935313495-201b17ef41d4?w=500&q=80" alt="Barista Preparando Café"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1525946950273-0ed7d80be951?w=500&q=80" alt="Interior do Café Aconchegante"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1541334237119-03c6294d13c7?w=500&q=80" alt="Bolo e Café na Mesa"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1517253507115-325d7af733e8?w=500&q=80" alt="Latte Art em Xícara"></div>
+                <div class="gallery-item"><img src="https://images.unsplash.com/photo-1504753733026-621f82f5c765?w=500&q=80" alt="Xícara de Café Quente"></div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="section-header">
+                <div class="section-label">Entre em Contato</div>
                 <h2 class="section-title">Visite-nos</h2>
-                <p class="section-description">Estamos em São Luís com delivery para toda a cidade</p>
+                <p class="section-description">Esperamos por você para uma experiência inesquecível. Veja nossos detalhes de contato e localização.</p>
             </div>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <h3>Endereço</h3>
-                    <p>Av. dos Holandeses, 114<br>Calhau, São Luís - MA</p>
-                </div>
-                <div class="contact-item">
-                    <h3>Horário</h3>
-                    <p>Segunda a Sexta: 7h - 20h<br>Sábado e Domingo: 8h - 22h</p>
-                </div>
-                <div class="contact-item">
-                    <h3>Contato</h3>
-                    <p>(98) 98408-8346<br>contato@soulbrewcafe.com</p>
+            <div class="contact">
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Endereço</h3>
+                        <p>Rua da Alma, 123 - Centro<br>Cidade do Soul - Brasil</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3>Telefone</h3>
+                        <p><a href="tel:+5511987654321">+55 (11) 98765-4321</a></p>
+                        <p><a href="tel:+551133332222">+55 (11) 3333-2222</a></p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <h3>E-mail</h3>
+                        <p><a href="mailto:contato@soulbrew.com.br">contato@soulbrew.com.br</a></p>
+                        <p>@soulbrewcafe</p>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <h3>Horário</h3>
+                        <p>Segunda a Sexta: 8h - 20h</p>
+                        <p>Sábados: 9h - 18h | Domingos: Fechado</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Soul Brew Cafe. Feito com amor e muito café.</p>
-            <p style="margin-top: 0.5rem; font-size: 0.85rem;">São Luís - MA</p>
-        </div>
+        <p>&copy; 2025 Soul Brew Cafe. Todos os direitos reservados.</p>
+        <p>Desenvolvido com <i class="fas fa-heart" style="color: var(--accent);"></i> e Café. | <a href="#">Política de Privacidade</a> | <a href="#">Termos de Uso</a></p>
     </footer>
 
-    <div class="cart-modal" id="cartModal">
+    <div id="cartModal" class="cart-modal">
         <div class="cart-content">
             <div class="cart-header">
-                <h2>Seu Carrinho</h2>
-                <button class="close-cart" onclick="toggleCart()">×</button>
+                <h2>Seu Pedido</h2>
+                <button class="close-cart" onclick="toggleCart()">&times;</button>
             </div>
-            <div class="cart-items" id="cartItems"></div>
+
+            <div class="cart-actions">
+                <button class="clear-cart-btn" onclick="clearCart()">Esvaziar Carrinho</button>
+            </div>
+
+            <div id="cartItems" class="cart-items">
+                <div class="empty-cart" id="emptyCartMessage">
+                    <i class="fas fa-mug-hot" style="font-size: 3rem; margin-bottom: 1rem;"></i>
+                    <p>Seu carrinho está vazio. Adicione um pouco de alma!</p>
+                </div>
+            </div>
+
             <div class="delivery-section">
-                <h3>Selecione seu bairro</h3>
-                <select id="neighborhoodSelect" onchange="updateDelivery()">
-                    <option value="0">Retirada na loja - Grátis</option>
-                    <option value="5">Calhau - R$ 5,00</option>
-                    <option value="6">São Francisco - R$ 6,00</option>
-                    <option value="7">Ponta da Areia - R$ 7,00</option>
-                    <option value="8">Renascença - R$ 8,00</option>
-                    <option value="9">Olho d'Água - R$ 9,00</option>
-                    <option value="10">Jardim Renascença - R$ 10,00</option>
-                    <option value="12">Centro - R$ 12,00</option>
-                    <option value="13">Cohama - R$ 13,00</option>
-                    <option value="14">Vinhais - R$ 14,00</option>
-                    <option value="15">Turu - R$ 15,00</option>
-                    <option value="16">Cohab - R$ 16,00</option>
-                    <option value="18">Angelim - R$ 18,00</option>
-                    <option value="20">Araçagy - R$ 20,00</option>
-                    <option value="22">São José de Ribamar - R$ 22,00</option>
+                <h3>Opções de Entrega</h3>
+                <select id="deliveryOption" onchange="updateCartSummary()">
+                    <option value="retirada" data-fee="0.00">Retirada na Loja (Grátis)</option>
+                    <option value="entrega" data-fee="10.00">Entrega Local (R$ 10,00)</option>
                 </select>
+                <input type="text" id="addressInput" placeholder="Endereço de Entrega (Se aplicável)" disabled>
             </div>
+
             <div class="cart-summary">
                 <div class="summary-row">
                     <span>Subtotal:</span>
                     <span id="subtotal">R$ 0,00</span>
                 </div>
                 <div class="summary-row">
-                    <span>Entrega:</span>
+                    <span>Taxa de Entrega:</span>
                     <span id="deliveryFee">R$ 0,00</span>
                 </div>
                 <div class="summary-row total">
                     <span>Total:</span>
-                    <span id="total">R$ 0,00</span>
+                    <span id="cartTotal">R$ 0,00</span>
                 </div>
             </div>
-            <button class="checkout-btn" onclick="checkout()">Finalizar no WhatsApp</button>
+
+            <button class="checkout-btn" id="checkoutBtn" disabled onclick="checkout()">Finalizar Pedido</button>
         </div>
     </div>
 
+    <div id="notification" class="notification"></div>
+
     <script>
-        let cart = [];
-        let deliveryFee = 0;
+        // Dados do Menu (opcional, mas facilita o JS)
+        const menuItemsData = [
+            { name: "Soul Espresso", price: 8.00 },
+            { name: "Cappuccino Groove", price: 12.00 },
+            { name: "Mocha Rhythm", price: 14.00 },
+            { name: "Soul Latte", price: 11.00 },
+            { name: "Iced Soul Shaker", price: 15.00 },
+            { name: "Chai Frappé", price: 13.00 },
+            { name: "Brownie de Chocolate", price: 10.00 },
+            { name: "Torta Red Velvet", price: 16.00 },
+            { name: "Pão de Queijo Recheado", price: 7.00 },
+            { name: "Croissant de Presunto e Queijo", price: 18.00 },
+        ];
+        
+        let cart = JSON.parse(localStorage.getItem('soulBrewCart')) || [];
 
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+        // --- Funções de Navegação e Responsividade ---
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-
+        // Controla o menu mobile
         function toggleMobileMenu() {
             const navLinks = document.getElementById('navLinks');
+            const menuIcon = document.getElementById('menuIcon');
             navLinks.classList.toggle('active');
-        }
-
-        function closeMobileMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.remove('active');
-        }
-
-        function addToCart(name, price) {
-            const existingItem = cart.find(item => item.name === name);
-            
-            if (existingItem) {
-                existingItem.quantity++;
+            // Altera o ícone do menu: barras para fechar (x)
+            if (navLinks.classList.contains('active')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+                document.body.style.overflow = 'hidden'; // Bloqueia scroll ao abrir menu
             } else {
-                cart.push({ name, price, quantity: 1 });
-            }
-            
-            updateCart();
-            
-            const btn = event.target;
-            const originalText = btn.textContent;
-            btn.textContent = 'Adicionado';
-            btn.classList.add('added');
-            setTimeout(() => {
-                btn.textContent = originalText;
-                btn.classList.remove('added');
-            }, 1200);
-        }
-
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            updateCart();
-        }
-
-        function updateQuantity(index, change) {
-            cart[index].quantity += change;
-            if (cart[index].quantity <= 0) {
-                removeFromCart(index);
-            } else {
-                updateCart();
-            }
-        }
-
-        function updateDelivery() {
-            const select = document.getElementById('neighborhoodSelect');
-            deliveryFee = parseFloat(select.value);
-            updateCart();
-        }
-
-        function updateCart() {
-            const cartItems = document.getElementById('cartItems');
-            const cartCount = document.getElementById('cartCount');
-            const subtotalEl = document.getElementById('subtotal');
-            const deliveryFeeEl = document.getElementById('deliveryFee');
-            const totalEl = document.getElementById('total');
-            
-            let totalItems = 0;
-            let subtotal = 0;
-            
-            if (cart.length === 0) {
-                cartItems.innerHTML = '<div class="empty-cart"><p>Seu carrinho está vazio</p></div>';
-            } else {
-                cartItems.innerHTML = cart.map((item, index) => {
-                    totalItems += item.quantity;
-                    subtotal += item.price * item.quantity;
-                    
-                    return `
-                        <div class="cart-item">
-                            <div class="cart-item-info">
-                                <h4>${item.name}</h4>
-                                <p>R$ ${item.price.toFixed(2)}</p>
-                            </div>
-                            <div class="cart-item-controls">
-                                <div class="qty-controls">
-                                    <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
-                                    <span class="qty-display">${item.quantity}</span>
-                                    <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
-                                </div>
-                                <button class="remove-item" onclick="removeFromCart(${index})">Remover</button>
-                            </div>
-                        </div>
-                    `;
-                }).join('');
-            }
-            
-            const total = subtotal + deliveryFee;
-            
-            cartCount.textContent = totalItems;
-            cartCount.style.display = totalItems > 0 ? 'flex' : 'none';
-            subtotalEl.textContent = `R$ ${subtotal.toFixed(2)}`;
-            deliveryFeeEl.textContent = deliveryFee === 0 ? 'Grátis' : `R$ ${deliveryFee.toFixed(2)}`;
-            totalEl.textContent = `R$ ${total.toFixed(2)}`;
-        }
-
-        function toggleCart() {
-            const modal = document.getElementById('cartModal');
-            modal.classList.toggle('active');
-            if (modal.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
                 document.body.style.overflow = '';
             }
         }
 
-        function checkout() {
-            if (cart.length === 0) {
-                alert('Seu carrinho está vazio');
-                return;
-            }
-            
-            const select = document.getElementById('neighborhoodSelect');
-            const neighborhood = select.options[select.selectedIndex].text;
-            
-            let message = 'Olá! Gostaria de fazer um pedido:%0A%0A';
-            
-            cart.forEach(item => {
-                message += `${item.name}%0A`;
-                message += `Quantidade: ${item.quantity}%0A`;
-                message += `Valor: R$ ${(item.price * item.quantity).toFixed(2)}%0A%0A`;
-            });
-            
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const total = subtotal + deliveryFee;
-            
-            message += `Entrega: ${neighborhood}%0A`;
-            message += `Subtotal: R$ ${subtotal.toFixed(2)}%0A`;
-            message += `Taxa de entrega: ${deliveryFee === 0 ? 'Grátis' : 'R$ ' + deliveryFee.toFixed(2)}%0A`;
-            message += `TOTAL: R$ ${total.toFixed(2)}`;
-            
-            const whatsappNumber = '5598984088346';
-            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${message}`;
-            
-            window.open(whatsappURL, '_blank');
+        function closeMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            const menuIcon = document.getElementById('menuIcon');
+            navLinks.classList.remove('active');
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+            document.body.style.overflow = '';
         }
 
-        document.getElementById('cartModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                toggleCart();
-            }
-        });
+        // Altera o header ao rolar
+        window.onscroll = function() {
+            scrollFunction();
+        };
 
-        updateCart();
+        function scrollFunction() {
+            const header = document.getElementById("header");
+            if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+                header.classList.add("scrolled");
+            } else {
+                header.classList.remove("scrolled");
+            }
+        }
+        
+        // Função de filtro do menu
+        function filterMenu(category) {
+            const items = document.querySelectorAll('.menu-item');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.filter-btn[onclick="filterMenu('${category}')"]`).classList.add('active');
+
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+        
+        // Inicializa o filtro de menu para "todos" ao carregar a página
+        document.addEventListener('DOMContentLoaded', () => {
+            filterMenu('all');
+            updateCartUI(); // Carrega o carrinho ao iniciar
+            attachAddToCartListeners(); // Anexa listeners aos botões
+        });
+        
+        function attachAddToCartListeners() {
+            document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const name = this.getAttribute('data-name');
+                    const price = parseFloat(this.getAttribute('data-price'));
+                    addToCart(name, price);
+                });
+            });
+        }
+        
+        // --- Funções do Carrinho (Cart) ---
+        
+        // Abre/Fecha Modal do Carrinho
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.classList.toggle('active');
+            if (cartModal.classList.contains('active')) {
+                document.body.style.overflow = 'hidden'; // Bloqueia scroll
+            } else {
+                document.body.style.overflow = '';
+            }
+        }
+        
+        // Adiciona item ao carrinho
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.qty++;
+            } else {
+                cart.push({ name, price, qty: 1 });
+            }
+            
+            saveCart();
+            updateCartUI();
+            showNotification(`${name} adicionado ao carrinho!`);
+        }
+        
+        // Remove item completamente
+        function removeItem(name) {
+            cart = cart.filter(item => item.name !== name);
+            saveCart();
+            updateCartUI();
+            showNotification(`${name} removido do carrinho.`, 'var(--accent)');
+        }
+        
+        // Altera quantidade
+        function updateQuantity(name, change) {
+            const item = cart.find(item => item.name === name);
+            if (item) {
+                item.qty += change;
+                if (item.qty <= 0) {
+                    removeItem(name);
+                    return;
+                }
+            }
+            saveCart();
+            updateCartUI();
+        }
+
+        // Esvaziar carrinho
+        function clearCart() {
+            cart = [];
+            saveCart();
+            updateCartUI();
+            showNotification('Carrinho esvaziado!', 'var(--accent)');
+        }
+        
+        // Salvar no LocalStorage
+        function saveCart() {
+            localStorage.setItem('soulBrewCart', JSON.stringify(cart));
+        }
+        
+        // Atualiza a interface do usuário do carrinho e contadores
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartCountElement = document.getElementById('cartCount');
+            const emptyMessage = document.getElementById('emptyCartMessage');
+            
+            // 1. Atualiza o contador do cabeçalho
+            const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+            cartCountElement.textContent = totalItems;
+
+            // 2. Limpa e reconstrói a lista de itens
+            cartItemsContainer.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItemsContainer.appendChild(emptyMessage);
+                emptyMessage.style.display = 'block';
+            } else {
+                emptyMessage.style.display = 'none';
+                cart.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.classList.add('cart-item');
+                    itemElement.innerHTML = `
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>R$ ${item.price.toFixed(2).replace('.', ',')} cada</p>
+                        </div>
+                        <div class="cart-item-controls">
+                            <div class="qty-controls">
+                                <button class="qty-btn" onclick="updateQuantity('${item.name}', -1)">-</button>
+                                <span class="qty-display">${item.qty}</span>
+                                <button class="qty-btn" onclick="updateQuantity('${item.name}', 1)">+</button>
+                            </div>
+                            <span class="price">R$ ${(item.price * item.qty).toFixed(2).replace('.', ',')}</span>
+                            <button class="remove-item" onclick="removeItem('${item.name}')"><i class="fas fa-trash-alt"></i></button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(itemElement);
+                });
+            }
+            
+            // 3. Atualiza o resumo
+            updateCartSummary();
+        }
+
+        // Atualiza o resumo de Subtotal, Entrega e Total
+        function updateCartSummary() {
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+            
+            const deliverySelect = document.getElementById('deliveryOption');
+            const selectedOption = deliverySelect.options[deliverySelect.selectedIndex];
+            const deliveryFeeValue = parseFloat(selectedOption.getAttribute('data-fee'));
+            
+            const deliveryFee = cart.length > 0 ? deliveryFeeValue : 0;
+            const total = subtotal + deliveryFee;
+
+            document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+            document.getElementById('deliveryFee').textContent = `R$ ${deliveryFee.toFixed(2).replace('.', ',')}`;
+            document.getElementById('cartTotal').textContent = `R$ ${total.toFixed(2).replace('.', ',')}`;
+            
+            // Habilita/Desabilita botão de checkout
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            const addressInput = document.getElementById('addressInput');
+
+            if (cart.length === 0) {
+                checkoutBtn.disabled = true;
+            } else {
+                checkoutBtn.disabled = false;
+            }
+
+            // Habilita/Desabilita campo de endereço
+            if (selectedOption.value === 'entrega') {
+                addressInput.disabled = false;
+                addressInput.placeholder = "Digite seu endereço completo";
+            } else {
+                addressInput.disabled = true;
+                addressInput.value = '';
+                addressInput.placeholder = "Endereço de Retirada na Loja";
+            }
+        }
+        
+        // Simulação de Finalização de Pedido
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Seu carrinho está vazio!');
+                return;
+            }
+
+            // Lógica de checkout simplificada:
+            const total = document.getElementById('cartTotal').textContent;
+            const deliveryType = document.getElementById('deliveryOption').value;
+            const address = document.getElementById('addressInput').value;
+
+            let message = `Pedido finalizado com sucesso!\n\nDetalhes:\nTotal: ${total}\nTipo: ${deliveryType === 'retirada' ? 'Retirada na Loja' : 'Entrega Local'}`;
+            
+            if (deliveryType === 'entrega' && address.trim() !== '') {
+                message += `\nEndereço: ${address.trim()}`;
+            }
+
+            alert(message);
+            
+            // Limpa o carrinho após o "checkout"
+            clearCart();
+            toggleCart();
+        }
+
+        // Notificação temporária
+        function showNotification(message, color = 'var(--gold)') {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.backgroundColor = color;
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+
     </script>
 </body>
-</html>Soul Espresso', 8.00)">Adicionar</button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800&q=80')"></div>
-                <div class="menu-item-content">
-                    <h3>Cappuccino Groove</h3>
-                    <p>Cremoso e suave, com latte art que dança na espuma. Perfeito para momentos contemplativos.</p>
-                    <div class="menu-footer">
-                        <div class="price">R$ 12,00</div>
-                        <button class="add-to-cart-btn" onclick="addToCart('Cappuccino Groove', 12.00)">Adicionar</button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-item">
-                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1578374173705-7ab52b6f9be0?w=800&q=80')"></div>
-                <div class="menu-item-content">
-                    <h3>Mocha Rhythm</h3>
-                    <p>Chocolate belga premium encontra café especial numa harmonia perfeita de sabores.</p>
-                    <div class="menu-footer">
-                        <div class="price">R$ 14,00</div>
-                        <button class="add-to-cart-btn" onclick="addToCart('
+</html>S
