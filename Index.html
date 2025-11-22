@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soul Brew Cafe - Café com Alma</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: #1a1410;
+            color: #f4e4d7;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background: rgba(26, 20, 16, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #d4a574;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4a574;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            animation: fadeInDown 1s ease;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #f4e4d7;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #d4a574;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(26, 20, 16, 0.7), rgba(26, 20, 16, 0.7)),
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23432818" width="1200" height="800"/><circle cx="200" cy="200" r="100" fill="%23d4a574" opacity="0.1"/><circle cx="800" cy="400" r="150" fill="%23d4a574" opacity="0.1"/><circle cx="1000" cy="600" r="80" fill="%23d4a574" opacity="0.1"/></svg>');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            animation: fadeInUp 1.5s ease;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            color: #d4a574;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            letter-spacing: 5px;
+        }
+
+        .hero p {
+            font-size: 1.8rem;
+            color: #f4e4d7;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .cta-button {
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            background: #d4a574;
+            color: #1a1410;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            background: #f4e4d7;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4);
+        }
+
+        section {
+            padding: 6rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            color: #d4a574;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4a574, transparent);
+        }
+
+        .about {
+            background: #241a14;
+            border-radius: 20px;
+            padding: 4rem;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.2rem;
+            line-height: 2;
+            color: #e4d4c7;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #d4a574, #8b6f47);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .menu-item {
+            background: #241a14;
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-10px);
+            border-color: #d4a574;
+            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.3);
+        }
+
+        .menu-item h3 {
+            color: #d4a574;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .menu-item p {
+            color: #e4d4c7;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .price {
+            color: #d4a574;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .contact {
+            background: linear-gradient(135deg, #432818, #241a14);
+            border-radius: 20px;
+            padding: 4rem;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 4rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            font-size: 1.2rem;
+            color: #e4d4c7;
+        }
+
+        .contact-item strong {
+            color: #d4a574;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #0f0a08;
+            color: #d4a574;
+            font-size: 1rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.3rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Soul Brew</div>
+            <ul class="nav-links">
+                <li><a href="#home">Início</a></li>
+                <li><a href="#about">Sobre</a></li>
+                <li><a href="#menu">Menu</a></li>
+                <li><a href="#contact">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>SOUL BREW CAFE</h1>
+            <p>Café com Alma, Sabor com História</p>
+            <a href="#menu" class="cta-button">Explore Nosso Menu</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2 class="section-title">Nossa História</h2>
+        <div class="about">
+            <div class="about-content">
+                <div class="about-text">
+                    <p>No Soul Brew Cafe, cada xícara conta uma história. Inspirados pela energia vibrante da música soul, criamos um espaço onde o café encontra a alma.</p>
+                    <br>
+                    <p>Nossos grãos são cuidadosamente selecionados, torrados com paixão e servidos com amor. Aqui, você não apenas toma café - você vive uma experiência que aquece o coração e alimenta a alma.</p>
+                    <br>
+                    <p>Venha sentir o ritmo do verdadeiro café artesanal em um ambiente que celebra a autenticidade, o calor humano e a boa música.</p>
+                </div>
+                <div class="about-image">☕</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="menu">
+        <h2 class="section-title">Nosso Menu</h2>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Soul Espresso</h3>
+                <p>Intenso e encorpado, como um vocal poderoso de soul. Nosso espresso artesanal que toca sua alma.</p>
+                <div class="price">R$ 8,00</div>
+            </div>
+            <div class="menu-item">
+                <h3>Cappuccino Groove</h3>
+                <p>Cremoso e suave, com arte latte que dança na espuma. Perfeito para momentos contemplativos.</p>
+                <div class="price">R$ 12,00</div>
+            </div>
+            <div class="menu-item">
+                <h3>Mocha Rhythm</h3>
+                <p>Chocolate belga premium encontra café especial numa harmonia perfeita de sabores.</p>
+                <div class="price">R$ 14,00</div>
+            </div>
+            <div class="menu-item">
+                <h3>Cold Brew Funk</h3>
+                <p>Extraído a frio por 24 horas, suave e refrescante. O café do verão com personalidade.</p>
+                <div class="price">R$ 13,00</div>
+            </div>
+            <div class="menu-item">
+                <h3>Soul Latte</h3>
+                <p>Nosso clássico latte com leite vaporizado perfeitamente e um toque de baunilha.</p>
+                <div class="price">R$ 11,00</div>
+            </div>
+            <div class="menu-item">
+                <h3>Brownie Blues</h3>
+                <p>Brownie de chocolate belga com nozes. A sobremesa que completa sua experiência soul.</p>
+                <div class="price">R$ 9,00</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact">
+            <h2 class="section-title">Visite-nos</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <strong>📍 Endereço</strong>
+                    Rua da Música Soul, 1969<br>
+                    Centro, São Paulo - SP
+                </div>
+                <div class="contact-item">
+                    <strong>⏰ Horário</strong>
+                    Segunda a Sexta: 7h - 20h<br>
+                    Sábado e Domingo: 8h - 22h
+                </div>
+                <div class="contact-item">
+                    <strong>📞 Contato</strong>
+                    (11) 9999-8888<br>
+                    contato@soulbrewcafe.com
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Soul Brew Cafe. Feito com ♥ e muito café.</p>
+    </footer>
+
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        const observerOptions = {
+            threshold: 0.2
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.menu-item, .about, .contact').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.8s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html> 
