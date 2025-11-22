@@ -67,9 +67,13 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
             list-style: none;
             align-items: center;
+        }
+
+        .nav-links li {
+            display: inline-block;
         }
 
         .nav-links a {
@@ -79,6 +83,7 @@
             font-weight: 500;
             transition: all 0.3s ease;
             position: relative;
+            display: block;
         }
 
         .nav-links a:hover {
@@ -708,6 +713,10 @@
             .about-image {
                 height: 300px;
             }
+
+            .nav-links {
+                gap: 2rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -731,14 +740,26 @@
                 gap: 1.5rem;
                 transition: left 0.3s ease;
                 border-top: 1px solid rgba(212, 165, 116, 0.3);
+                z-index: 999;
             }
 
             .nav-links.active {
                 left: 0;
             }
 
+            .nav-links li {
+                width: 100%;
+                text-align: center;
+            }
+
             .nav-links a {
                 font-size: 1.1rem;
+                padding: 0.5rem;
+            }
+
+            .cart-button {
+                width: 100%;
+                max-width: 250px;
             }
 
             .mobile-menu-btn {
@@ -997,7 +1018,7 @@
             <div class="contact-grid">
                 <div class="contact-item">
                     <h3>Endereço</h3>
-                    <p>Rua da Música Soul, 1969<br>Centro, São Luís - MA</p>
+                    <p>Av. dos Holandeses, 114<br>Calhau, São Luís - MA</p>
                 </div>
                 <div class="contact-item">
                     <h3>Horário</h3>
@@ -1029,18 +1050,20 @@
                 <h3>Selecione seu bairro</h3>
                 <select id="neighborhoodSelect" onchange="updateDelivery()">
                     <option value="0">Retirada na loja - Grátis</option>
-                    <option value="5">Centro - R$ 5,00</option>
-                    <option value="7">Renascença - R$ 7,00</option>
-                    <option value="8">Calhau - R$ 8,00</option>
-                    <option value="8">São Francisco - R$ 8,00</option>
-                    <option value="10">Olho d'Água - R$ 10,00</option>
+                    <option value="5">Calhau - R$ 5,00</option>
+                    <option value="6">São Francisco - R$ 6,00</option>
+                    <option value="7">Ponta da Areia - R$ 7,00</option>
+                    <option value="8">Renascença - R$ 8,00</option>
+                    <option value="9">Olho d'Água - R$ 9,00</option>
                     <option value="10">Jardim Renascença - R$ 10,00</option>
-                    <option value="12">Turu - R$ 12,00</option>
-                    <option value="12">Cohab - R$ 12,00</option>
-                    <option value="15">Cohama - R$ 15,00</option>
-                    <option value="15">Vinhais - R$ 15,00</option>
-                    <option value="18">Araçagy - R$ 18,00</option>
-                    <option value="20">São José de Ribamar - R$ 20,00</option>
+                    <option value="12">Centro - R$ 12,00</option>
+                    <option value="13">Cohama - R$ 13,00</option>
+                    <option value="14">Vinhais - R$ 14,00</option>
+                    <option value="15">Turu - R$ 15,00</option>
+                    <option value="16">Cohab - R$ 16,00</option>
+                    <option value="18">Angelim - R$ 18,00</option>
+                    <option value="20">Araçagy - R$ 20,00</option>
+                    <option value="22">São José de Ribamar - R$ 22,00</option>
                 </select>
             </div>
             <div class="cart-summary">
