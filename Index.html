@@ -5,16 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Soul Brew Cafe - Café com Alma</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@300;400;600&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --gold: #d4a574;
+            --dark: #1a1410;
+            --cream: #f4e4d7;
+            --brown: #432818;
+            --accent: #ff6b35;
+        }
+
         body {
-            font-family: 'Georgia', serif;
-            background: #1a1410;
-            color: #f4e4d7;
+            font-family: 'Montserrat', sans-serif;
+            background: var(--dark);
+            color: var(--cream);
             overflow-x: hidden;
         }
 
@@ -23,9 +33,15 @@
             width: 100%;
             top: 0;
             z-index: 1000;
-            background: rgba(26, 20, 16, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid #d4a574;
+            background: rgba(26, 20, 16, 0.98);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 165, 116, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
         }
 
         nav {
@@ -33,46 +49,71 @@
             justify-content: space-between;
             align-items: center;
             padding: 1.5rem 5%;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
         .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #d4a574;
-            text-transform: uppercase;
-            letter-spacing: 3px;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--gold), #f4d03f);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
             animation: fadeInDown 1s ease;
+            cursor: pointer;
         }
 
         .nav-links {
             display: flex;
-            gap: 2.5rem;
+            gap: 3rem;
             list-style: none;
+            align-items: center;
         }
 
         .nav-links a {
-            color: #f4e4d7;
+            color: var(--cream);
             text-decoration: none;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
             position: relative;
         }
 
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #d4a574;
-            transition: width 0.3s ease;
+        .nav-links a:hover {
+            color: var(--gold);
         }
 
-        .nav-links a:hover::after {
-            width: 100%;
+        .cart-icon {
+            position: relative;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
         }
 
         .hero {
@@ -80,378 +121,700 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(rgba(26, 20, 16, 0.7), rgba(26, 20, 16, 0.7)),
-                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23432818" width="1200" height="800"/><circle cx="200" cy="200" r="100" fill="%23d4a574" opacity="0.1"/><circle cx="800" cy="400" r="150" fill="%23d4a574" opacity="0.1"/><circle cx="1000" cy="600" r="80" fill="%23d4a574" opacity="0.1"/></svg>');
+            background: linear-gradient(135deg, rgba(26, 20, 16, 0.85), rgba(67, 40, 24, 0.75)),
+                        url('https://images.unsplash.com/photo-1511920170033-f8396924c348?w=1920&q=80');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             text-align: center;
             position: relative;
+            overflow: hidden;
         }
 
         .hero-content {
+            position: relative;
+            z-index: 2;
             animation: fadeInUp 1.5s ease;
         }
 
+        .hero-subtitle {
+            font-size: 1rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            animation: fadeInUp 1.8s ease;
+        }
+
         .hero h1 {
-            font-size: 5rem;
-            color: #d4a574;
-            margin-bottom: 1rem;
-            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
-            letter-spacing: 5px;
+            font-family: 'Playfair Display', serif;
+            font-size: 6.5rem;
+            background: linear-gradient(135deg, var(--gold), #f4d03f, var(--gold));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 80px rgba(212, 165, 116, 0.3);
+            letter-spacing: 3px;
+            font-weight: 900;
+            animation: gradient-shift 3s ease infinite, fadeInUp 1.5s ease;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .hero p {
-            font-size: 1.8rem;
-            color: #f4e4d7;
-            margin-bottom: 2rem;
-            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--cream);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            animation: fadeInUp 2s ease;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            animation: fadeInUp 2.3s ease;
         }
 
         .cta-button {
-            padding: 1rem 3rem;
-            font-size: 1.2rem;
-            background: #d4a574;
-            color: #1a1410;
+            padding: 1.2rem 3rem;
+            font-size: 1rem;
+            font-weight: 600;
             border: none;
             border-radius: 50px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
             text-decoration: none;
             display: inline-block;
-            font-weight: bold;
             text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .cta-button:hover {
-            background: #f4e4d7;
+        .cta-button.primary {
+            background: linear-gradient(135deg, var(--gold), #f4d03f);
+            color: var(--dark);
+        }
+
+        .cta-button.primary:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4);
+            box-shadow: 0 20px 40px rgba(212, 165, 116, 0.4);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--cream);
+            border: 2px solid var(--gold);
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--gold);
+            color: var(--dark);
+            transform: translateY(-5px);
         }
 
         section {
-            padding: 6rem 5%;
-            max-width: 1400px;
+            padding: 8rem 5%;
+            max-width: 1600px;
             margin: 0 auto;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 1rem;
+            font-weight: 600;
         }
 
         .section-title {
-            font-size: 3rem;
-            color: #d4a574;
-            text-align: center;
-            margin-bottom: 3rem;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: var(--cream);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #d4a574, transparent);
+        .section-description {
+            font-size: 1.1rem;
+            color: rgba(244, 228, 215, 0.8);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.8;
         }
 
         .about {
-            background: #241a14;
-            border-radius: 20px;
-            padding: 4rem;
+            background: linear-gradient(135deg, rgba(67, 40, 24, 0.4), rgba(26, 20, 16, 0.6));
+            border-radius: 30px;
+            padding: 5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 165, 116, 0.2);
         }
 
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
+            gap: 5rem;
             align-items: center;
         }
 
         .about-text {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             line-height: 2;
-            color: #e4d4c7;
+            color: var(--cream);
+        }
+
+        .about-text h3 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .about-image {
             width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, #d4a574, #8b6f47);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            animation: float 3s ease-in-out infinite;
+            height: 500px;
+            background: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80');
+            background-size: cover;
+            background-position: center;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
 
         .menu-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
             margin-top: 3rem;
         }
 
         .menu-item {
-            background: #241a14;
-            padding: 2rem;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
+            background: linear-gradient(135deg, rgba(67, 40, 24, 0.3), rgba(26, 20, 16, 0.5));
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            cursor: pointer;
         }
 
         .menu-item:hover {
-            transform: translateY(-10px);
-            border-color: #d4a574;
-            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.3);
+            transform: translateY(-15px);
+            border-color: var(--gold);
+            box-shadow: 0 25px 50px rgba(212, 165, 116, 0.3);
+        }
+
+        .menu-item-image {
+            width: 100%;
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .menu-item-content {
+            padding: 2.5rem;
+        }
+
+        .menu-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
         }
 
         .menu-item h3 {
-            color: #d4a574;
-            font-size: 1.8rem;
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 2rem;
             margin-bottom: 1rem;
         }
 
         .menu-item p {
-            color: #e4d4c7;
+            color: rgba(244, 228, 215, 0.8);
             line-height: 1.8;
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+        }
+
+        .menu-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .price {
-            color: #d4a574;
-            font-size: 1.5rem;
-            font-weight: bold;
+            color: var(--gold);
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .add-to-cart-btn {
+            padding: 0.8rem 1.8rem;
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .add-to-cart-btn:hover {
+            background: var(--cream);
+            transform: scale(1.05);
+        }
+
+        .gallery {
+            background: rgba(67, 40, 24, 0.2);
+            padding: 6rem 5%;
+            margin: 0 -5%;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            aspect-ratio: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.4s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
         .contact {
-            background: linear-gradient(135deg, #432818, #241a14);
-            border-radius: 20px;
-            padding: 4rem;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(67, 40, 24, 0.3));
+            border-radius: 30px;
+            padding: 5rem;
             text-align: center;
+            border: 1px solid rgba(212, 165, 116, 0.3);
         }
 
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
         }
 
         .contact-item {
-            font-size: 1.2rem;
-            color: #e4d4c7;
+            padding: 2rem;
+            background: rgba(26, 20, 16, 0.4);
+            border-radius: 20px;
+            transition: all 0.3s ease;
         }
 
-        .contact-item strong {
-            color: #d4a574;
-            display: block;
+        .contact-item:hover {
+            transform: translateY(-10px);
+            background: rgba(212, 165, 116, 0.1);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item h3 {
+            color: var(--gold);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .contact-item p {
+            color: rgba(244, 228, 215, 0.8);
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+
+        /* CART MODAL */
+        .cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .cart-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-content {
+            background: var(--dark);
+            border: 2px solid var(--gold);
+            border-radius: 30px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .cart-header h2 {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 2rem;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: var(--cream);
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close-cart:hover {
+            color: var(--accent);
+            transform: rotate(90deg);
+        }
+
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            background: rgba(67, 40, 24, 0.3);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+        }
+
+        .cart-item-info h4 {
+            color: var(--gold);
             margin-bottom: 0.5rem;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .qty-btn {
+            background: var(--gold);
+            color: var(--dark);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .qty-btn:hover {
+            background: var(--cream);
+            transform: scale(1.1);
+        }
+
+        .remove-item {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .remove-item:hover {
+            background: #ff4520;
+        }
+
+        .delivery-section {
+            background: rgba(67, 40, 24, 0.3);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .delivery-section h3 {
+            color: var(--gold);
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .delivery-section select {
+            width: 100%;
+            padding: 1rem;
+            background: var(--dark);
+            color: var(--cream);
+            border: 1px solid var(--gold);
+            border-radius: 10px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+
+        .cart-summary {
+            background: rgba(67, 40, 24, 0.5);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            color: var(--cream);
+        }
+
+        .summary-row.total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--gold);
+            padding-top: 1rem;
+            border-top: 2px solid var(--gold);
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--gold), #f4d03f);
+            color: var(--dark);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(212, 165, 116, 0.4);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+            color: rgba(244, 228, 215, 0.6);
         }
 
         footer {
             text-align: center;
-            padding: 2rem;
-            background: #0f0a08;
-            color: #d4a574;
-            font-size: 1rem;
+            padding: 3rem;
+            background: rgba(15, 10, 8, 0.8);
+            color: var(--gold);
+            border-top: 1px solid rgba(212, 165, 116, 0.2);
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+        @media (max-width: 1024px) {
+            .hero h1 { font-size: 4.5rem; }
+            .about-content { grid-template-columns: 1fr; }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .hero p {
-                font-size: 1.3rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.9rem;
-            }
-
-            .logo {
-                font-size: 1.5rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
+            .hero h1 { font-size: 3rem; }
+            .nav-links { gap: 1.5rem; font-size: 0.85rem; }
+            .menu-grid, .gallery-grid { grid-template-columns: 1fr; }
+            .cart-content { padding: 2rem; }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header id="header">
         <nav>
-            <div class="logo">Soul Brew</div>
+            <div class="logo" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">SOUL BREW</div>
             <ul class="nav-links">
                 <li><a href="#home">Início</a></li>
                 <li><a href="#about">Sobre</a></li>
                 <li><a href="#menu">Menu</a></li>
+                <li><a href="#gallery">Galeria</a></li>
                 <li><a href="#contact">Contato</a></li>
+                <li>
+                    <div class="cart-icon" onclick="toggleCart()">
+                        🛒
+                        <span class="cart-count" id="cartCount">0</span>
+                    </div>
+                </li>
             </ul>
         </nav>
     </header>
 
     <section id="home" class="hero">
         <div class="hero-content">
+            <div class="hero-subtitle">Onde a Música Encontra o Café</div>
             <h1>SOUL BREW CAFE</h1>
-            <p>Café com Alma, Sabor com História</p>
-            <a href="#menu" class="cta-button">Explore Nosso Menu</a>
+            <p>Cada xícara conta uma história, cada gole toca sua alma</p>
+            <div class="cta-buttons">
+                <a href="#menu" class="cta-button primary">Nosso Menu</a>
+                <a href="#contact" class="cta-button secondary">Visite-nos</a>
+            </div>
         </div>
     </section>
 
     <section id="about">
-        <h2 class="section-title">Nossa História</h2>
+        <div class="section-header">
+            <div class="section-label">Nossa Essência</div>
+            <h2 class="section-title">A Alma do Café</h2>
+            <p class="section-description">Mais do que um café, somos um refúgio para quem busca autenticidade, sabor e conexão</p>
+        </div>
         <div class="about">
             <div class="about-content">
                 <div class="about-text">
-                    <p>No Soul Brew Cafe, cada xícara conta uma história. Inspirados pela energia vibrante da música soul, criamos um espaço onde o café encontra a alma.</p>
-                    <br>
-                    <p>Nossos grãos são cuidadosamente selecionados, torrados com paixão e servidos com amor. Aqui, você não apenas toma café - você vive uma experiência que aquece o coração e alimenta a alma.</p>
-                    <br>
-                    <p>Venha sentir o ritmo do verdadeiro café artesanal em um ambiente que celebra a autenticidade, o calor humano e a boa música.</p>
+                    <h3>Nascido da Paixão pela Música Soul</h3>
+                    <p>No Soul Brew Cafe, cada xícara é uma nota musical, cada aroma é uma melodia. Inspirados pelos ritmos da música soul, criamos um espaço onde o café artesanal se encontra com a cultura e a autenticidade.</p>
+                    <p>Nossos grãos são selecionados de fazendas sustentáveis, torrados com maestria e preparados com dedicação. Aqui, você não apenas toma café — você vive uma experiência sensorial completa.</p>
                 </div>
-                <div class="about-image">☕</div>
+                <div class="about-image"></div>
             </div>
         </div>
     </section>
 
     <section id="menu">
-        <h2 class="section-title">Nosso Menu</h2>
+        <div class="section-header">
+            <div class="section-label">Sabores que Tocam a Alma</div>
+            <h2 class="section-title">Nosso Menu</h2>
+            <p class="section-description">Cada bebida é uma composição única criada para despertar seus sentidos</p>
+        </div>
         <div class="menu-grid">
             <div class="menu-item">
-                <h3>Soul Espresso</h3>
-                <p>Intenso e encorpado, como um vocal poderoso de soul. Nosso espresso artesanal que toca sua alma.</p>
-                <div class="price">R$ 8,00</div>
-            </div>
-            <div class="menu-item">
-                <h3>Cappuccino Groove</h3>
-                <p>Cremoso e suave, com arte latte que dança na espuma. Perfeito para momentos contemplativos.</p>
-                <div class="price">R$ 12,00</div>
-            </div>
-            <div class="menu-item">
-                <h3>Mocha Rhythm</h3>
-                <p>Chocolate belga premium encontra café especial numa harmonia perfeita de sabores.</p>
-                <div class="price">R$ 14,00</div>
-            </div>
-            <div class="menu-item">
-                <h3>Cold Brew Funk</h3>
-                <p>Extraído a frio por 24 horas, suave e refrescante. O café do verão com personalidade.</p>
-                <div class="price">R$ 13,00</div>
-            </div>
-            <div class="menu-item">
-                <h3>Soul Latte</h3>
-                <p>Nosso clássico latte com leite vaporizado perfeitamente e um toque de baunilha.</p>
-                <div class="price">R$ 11,00</div>
-            </div>
-            <div class="menu-item">
-                <h3>Brownie Blues</h3>
-                <p>Brownie de chocolate belga com nozes. A sobremesa que completa sua experiência soul.</p>
-                <div class="price">R$ 9,00</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="contact">
-            <h2 class="section-title">Visite-nos</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <strong>📍 Endereço</strong>
-                    Rua da Música Soul, 1969<br>
-                    Centro, São Paulo - SP
-                </div>
-                <div class="contact-item">
-                    <strong>⏰ Horário</strong>
-                    Segunda a Sexta: 7h - 20h<br>
-                    Sábado e Domingo: 8h - 22h
-                </div>
-                <div class="contact-item">
-                    <strong>📞 Contato</strong>
-                    (11) 9999-8888<br>
-                    contato@soulbrewcafe.com
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <span class="menu-icon">☕</span>
+                    <h3>Soul Espresso</h3>
+                    <p>Intenso e encorpado. Nosso espresso artesanal feito com grãos 100% arábica especial que toca sua alma.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 8,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Soul Espresso', 8.00, 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=200&q=80')">Adicionar</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Soul Brew Cafe. Feito com ♥ e muito café.</p>
-    </footer>
-
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        const observerOptions = {
-            threshold: 0.2
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.menu-item, .about, .contact').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'all 0.8s ease';
-            observer.observe(el);
-        });
-    </script>
-</body>
-</html> 
+            <div class="menu-item">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <span class="menu-icon">🎨</span>
+                    <h3>Cappuccino Groove</h3>
+                    <p>Cremoso e suave, com latte art que dança na espuma. Perfeito para momentos contemplativos.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 12,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Cappuccino Groove', 12.00, 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=200&q=80')">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1578374173705-7ab52b6f9be0?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <span class="menu-icon">🍫</span>
+                    <h3>Mocha Rhythm</h3>
+                    <p>Chocolate belga premium encontra café especial numa harmonia perfeita de sabores.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 14,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Mocha Rhythm', 14.00, 'https://images.unsplash.com/photo-1578374173705-7ab52b6f9be0?w=200&q=80')">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <span class="menu-icon">❄️</span>
+                    <h3>Cold Brew Funk</h3>
+                    <p>Extraído a frio por 24 horas, suave e refrescante. O café do verão com personalidade.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 13,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Cold Brew Funk', 13.00, 'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=200&q=80')">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <span class="menu-icon">🥛</span>
+                    <h3>Soul Latte</h3>
+                    <p>Nosso clássico latte com leite vaporizado perfeitamente e um toque de baunilha.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 11,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Soul Latte', 11.00, 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=200&q=80')">Adicionar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-item">
+                <div class="menu-item-image" style="background-image: url('https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=800&q=80')"></div>
+                <div class="menu-item-content">
+                    <span class="menu-icon">🍰</span>
+                    <h3>Brownie Blues</h3>
+                    <p>Brownie de chocolate belga com nozes. A sobremesa que completa sua experiência soul.</p>
+                    <div class="menu-footer">
+                        <div class="price">R$ 9,00</div>
+                        <button class="add-to-cart-btn" onclick="addToCart('Brownie Blues', 9.00, 'https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=200&q=
